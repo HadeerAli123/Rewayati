@@ -1,0 +1,286 @@
+<section>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-3">
+        <img
+          src="/images/cover1.jpg"
+          class="img-fluid"
+          alt="cover book"
+          style="width: 80%"
+        />
+        <div>
+          <button class="btn now" routerLink="/story/read">
+            Read now
+          </button>
+        </div>
+        <div>
+          <button class="btn later" >
+            Save to read Later
+          </button>
+        </div>
+
+      </div>
+      <div class="col-md-9">
+       <!--title-->
+        <div class="title mb-3 mt-sm-4 mt-md-0">
+          <h3>Book Title</h3>
+        </div>
+        <!--icons-->
+        <div class="d-flex justify-content-start mb-5">
+          <div >
+            <span> <img src="images/reading-book.png" style="height: 20px; width: 20px;" alt=""> <span style="padding-left: 5px; font-size: 14px;">20</span>  </span>
+          </div>
+          <div class="ps-3">
+          <span> <img src="images/feedback.png" style="height: 20px; width: 20px;" alt=""> <span style="padding-left: 3px; font-size: 14px;"> 200</span></span>
+          </div>
+          <div class="ps-3">
+            <span> <img src="images/feedback-2.png" style="height: 20px; width: 20px;" alt=""> <span style=" font-size: 14px;"> 150</span></span>
+          </div>
+          <div class="ps-2">
+            <span> <img src="images/chapter.png" style=" padding-left: 5px; height: 13px; width: 20px;" alt=""> <span style=" font-size: 12px;"> 150</span></span>
+          </div>
+        </div>
+
+        <mat-tab-group >
+          <mat-tab label="Details">  
+            <div class="description my-4">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non natus
+              molestiae debitis consequuntur nulla dolorum pariatur? Asperiores
+              eveniet iste assumenda vel voluptatum velit perspiciatis quia officiis
+              non architecto. Consequuntur, deleniti.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non natus
+              molestiae debitis consequuntur nulla dolorum pariatur? Asperiores
+              eveniet iste assumenda vel voluptatum velit perspiciatis quia officiis
+              non architecto. Consequuntur, deleniti.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non natus
+              molestiae debitis consequuntur nulla dolorum pariatur? Asperiores
+              eveniet iste assumenda vel voluptatum velit perspiciatis quia officiis
+              non architecto. Consequuntur, deleniti.
+            </div>  
+            <div class="my-3 specifications">
+              <div class="row align-items-center">
+                <div class="col-md-3">Main Characters:</div>
+                <div class="col-md-9">
+                  <mat-chip-set aria-label="Fish selection">
+                    <mat-chip>asmaa</mat-chip>
+                    <mat-chip>hadeer</mat-chip>
+                    <mat-chip>nour</mat-chip>
+                  </mat-chip-set>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <p>Category:</p>
+                </div>
+                <div class="col-md-9">
+                  <p>adventure</p>
+              </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <p>Language:</p>
+                </div>
+                <div class="col-md-9">
+                  <p>Arabic</p>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <p>Status:</p>
+                </div>
+                <div class="col-md-9">
+                  <p>completed</p>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <p>published on:</p>
+                </div>
+                <div class="col-md-9">
+                  <p>Any Date</p>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <p>last update:</p>
+                </div>
+                <div class="col-md-9">
+                  <p>Author Date</p>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <p>Tags:</p>
+                </div>
+                <div class="col-md-9">
+                  <mat-chip-set aria-label="Fish selection" class="tag">
+                    <mat-chip>asmaa</mat-chip>
+                    <mat-chip>hadeer</mat-chip>
+                    <mat-chip>nour</mat-chip>
+                  </mat-chip-set>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Content"> 
+            <ul class="my-4">
+              <li>
+                <a href="#"><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">Chapter 1</p></a>
+                <a href="#"><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">Chapter 2</p></a>
+                <a href="#"><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">Chapter 3</p></a>
+                <a href="#"><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">Chapter 4</p></a>
+                <a href="#"><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">Chapter 5</p></a>
+              </li>
+            </ul>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+    <hr>
+    <div class="text-start ms-3 my-5">
+      <h3><u>Readers Reviews</u></h3>
+      <app-comments></app-comments>
+    </div>
+
+    <hr>
+    <div class=" ms-3 my-5">
+      <h3 class="mb-3 text-start"><u>Recommended Stories</u></h3>
+      <div id="carouselExampleFade" class="carousel slide carousel-fade h-50 text-center my-5">
+        <div class="carousel-inner"> 
+          <div class="carousel-item active">
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+            <img
+              src="images/cover1.jpg"
+              class="img-fluid px-2"
+              alt="cover"
+              style="height: 220px; width: 160px"
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev me-4"
+          type="button"
+          data-bs-target="#carouselExampleFade"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next ms-4"
+          type="button"
+          data-bs-target="#carouselExampleFade"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon text-black" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

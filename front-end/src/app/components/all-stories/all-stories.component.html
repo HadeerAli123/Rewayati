@@ -1,0 +1,44 @@
+<div class="container">
+
+    
+  <div class="row m-3">
+    <div class="col-md-3 my-2 " *ngFor="let story of stories">
+      <mat-card 
+        appearance="outlined" style="cursor: pointer;" routerLink="/story/details">
+        <img
+          mat-card-image
+          class="m-2"
+          src="{{story.cover_image}}"
+          alt="cover_image"
+        />
+        <mat-card-content class="pt-2" routerLink="/story/details">
+          <a routerLink="/story/details">
+            <p mat-card-title class="py-2 title">{{story.title}}.</p>
+          </a>
+
+          <div class="d-flex justify-content-start">
+            <div >
+              <span> <img src="images/reading-book.png" style="height: 20px; width: 20px;" alt=""> <span style="padding-left:3px; font-size: 12px;">202</span>  </span>
+            </div>
+            <div class="ps-2">
+            <span> <img src="images/feedback.png" style="height: 20px; width: 20px;" alt=""> <span style="padding-left: 3px; font-size: 12px;"> 200</span></span>
+            </div>
+            <div class="ps-2">
+              <span> <img src="images/feedback-2.png" style="height: 20px; width: 20px;" alt=""> <span style=" font-size: 12px;"> 150</span></span>
+            </div>
+            <div class="ps-2">
+              <span> <img src="images/chapter.png" style="height: 13px; width: 20px;" alt=""> <span style=" font-size: 12px;"> 150</span></span>
+            </div>
+          </div>
+  
+        </mat-card-content>
+        <!-- <mat-card-actions>
+          <div>
+            <button mat-button>Read Now</button>
+          </div>
+        </mat-card-actions> -->
+      </mat-card>
+    </div>
+
+  </div>
+</div>

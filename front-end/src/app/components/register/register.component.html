@@ -1,0 +1,175 @@
+<section >
+  <mat-stepper [linear]="isLinear" #stepper class="register">
+    <!-- First Step -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" class="register-form">
+        <ng-template matStepLabel>Fill out your information</ng-template>        
+        <!-- Username -->
+         <div class="row">
+          <div class="col-md-6">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            placeholder="Enter your username"
+            formControlName="username"
+            maxlength="10"
+            required
+          />
+          <mat-error *ngIf="firstFormGroup.get('username')?.hasError('required')">
+            Username is required
+          </mat-error>
+          <mat-error *ngIf="firstFormGroup.get('username')?.hasError('maxlength')">
+            Maximum length is 10 characters
+          </mat-error>
+        </mat-form-field>     
+          </div>
+          <!-- Email -->
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="pat@example.com"
+                formControlName="email"
+                required
+              />
+              <mat-error *ngIf="firstFormGroup.get('email')?.hasError('required')">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="firstFormGroup.get('email')?.hasError('email')">
+                Please enter a valid email
+              </mat-error>
+              
+            </mat-form-field>  
+             </div>
+         </div>
+         <div class="row">
+          <div class="col-md-6"> 
+            <!-- Password -->
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                [type]="hidePassword ? 'password' : 'text'"
+                formControlName="password"
+                required
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="togglePasswordVisibility()"
+              >
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <mat-error *ngIf="firstFormGroup.get('password')?.hasError('required')">
+                Password is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <!-- Confirm Password -->
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="confirmPassword"
+            required
+          />
+          <mat-error *ngIf="firstFormGroup.get('confirmPassword')?.hasError('required')">
+            Confirm password is required
+          </mat-error>
+          <mat-error *ngIf="firstFormGroup.hasError('passwordMismatch')">
+            Passwords do not match
+          </mat-error>
+        </mat-form-field>
+
+          </div>
+         </div>
+         <div class="row">
+          <div class="col-md-6">
+             <!-- Gender -->
+        <mat-radio-group formControlName="gender" class="form-field" required>
+          <label>Gender</label>
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="firstFormGroup.get('gender')?.hasError('required')">
+          Gender is required
+        </mat-error>
+  
+          </div>
+          <div class="col-md-6">
+             <!-- Profile Picture -->
+        <div class="form-field">
+          <label class="mx-2">Profile Picture</label>
+          <input
+            type="file" class="form-control w-100" formControlName="image" required
+          />
+        </div>
+          </div>
+         </div>
+        <div class="py-3 text-end">
+          <button mat-button matStepperNext style="color: black">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    
+    <!-- Second Step -->
+    <mat-step [stepControl]="secondFormGroup" label="Choose your categories">
+      <form [formGroup]="secondFormGroup">
+        <fieldset class="color-black">
+          <legend>Choose Your Interests</legend>
+          
+          <div 
+          *ngIf="secondFormGroup.controls['chips'].errors?.['maxSelected']" class="error">
+          You can select up to 3 categories only.
+          </div>
+       
+          <div class="categories-container">
+            <div *ngFor="let category of categories; let i = index" class="category-item">
+              <input
+                type="checkbox"
+                class="chip bounce"
+                role="switch"
+                [value]="category.category_name"
+                (change)="onChipChange($event)"
+                style="--color:#fa3"
+              />
+            </div>
+          </div>
+        </fieldset>
+      
+        <div class="py-3 d-flex justify-content-between">
+          <div>
+            <button mat-button matStepperPrevious style="color: black">Back</button>
+          </div>
+          <div>
+            <button
+              mat-button
+              matStepperNext
+              style="color: black"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+      
+    </mat-step>
+    
+    <!-- Final Step -->
+    <mat-step>
+      <ng-template matStepLabel>Register</ng-template>
+      <p class="text-center p-5"><img src="images/thanks.png" style="height:100px; width:100px;" alt=""></p>
+      <div class="text-center">
+        <button mat-button type="submit" [disabled]="!secondFormGroup.valid" style="background-color: #f87f27; color: black;font-size: 18px;">Register</button> <br><br>
+
+        <button mat-button matStepperPrevious style="color: black">Back</button>
+        <button mat-button style="color: black" (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+  
+</section>

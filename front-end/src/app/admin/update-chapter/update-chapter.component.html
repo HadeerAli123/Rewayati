@@ -1,0 +1,29 @@
+<div class="chapter my-5 m-auto shadow bg-white">
+    <h5 class="title mb-3">Update chapter</h5>
+    <div class="container">
+      <form action="">
+        <div class="row">
+          <div class="col-md-4 form-group">
+            <div class="my-3">
+              <label for="title" class="label">Title</label>
+              <input type="text" class="input-text" id="title" name="title" />
+            </div>
+            <div>
+              <label for="date" class="label my-3">cover Image</label><br>
+              <input type="file" name="coverImage" id="coverImage" class="form" />
+            </div>
+          </div>
+          <div class="col-md-8 form-group mt-3">
+            <quill-editor
+              [styles]="{ height: '300px',}"
+              (onEditorChanged)="changedEditor($event)"
+            ></quill-editor>
+          </div>
+        </div>
+        <div class=" text-center">
+          <input type="submit" class="btn" value="Update Chapter">
+      </div>
+      </form>
+    </div>
+  </div>
+  

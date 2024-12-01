@@ -1,0 +1,26 @@
+<div class=" my-5">
+  <table class="table m-auto" style="vertical-align:middle; width: 95%;">
+    <thead class="text-center">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Message</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts" style="text-align: center">
+        <td>{{contact.name}}</td>
+        <td>{{contact.email}}</td>
+        <td>{{contact.phone}}</td>
+        <td style="width: 45%; text-align: start !important;">
+        {{contact.message}}
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteMessage(contact.id)" *ngIf="contact.id">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

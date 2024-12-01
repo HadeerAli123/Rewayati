@@ -1,0 +1,19 @@
+<div class="category my-5 m-auto shadow bg-white">
+    <h5 class="title mb-3">Update Category</h5>
+   <div class="container">
+        <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="category-form">
+            <div class="form-field">
+                <mat-form-field appearance="outline">
+                    <mat-label>Category Name</mat-label>
+                    <input matInput formControlName="category_name">
+                </mat-form-field>
+                <mat-error *ngIf="categoryForm.get('category_name')?.invalid">
+                    Category name is required and must be at least 3 characters.
+                  </mat-error>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn" mat-raised-button>Update Category</button>
+              </div>
+        </form>
+    </div>
+</div>
