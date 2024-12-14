@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class StoryService {
   // Fetch stories from API
-  private apiURL = 'http://127.0.0.1:8000/api/stories';
+  // private apiURL = 'http://127.0.0.1:8000/api/stories';
+  private apiURL = 'https://whitesmoke-coyote-648419.hostingersite.com/api/stories';
+  
   constructor(private http: HttpClient) { }
 
   getAllStories(): Observable<Story[]>{

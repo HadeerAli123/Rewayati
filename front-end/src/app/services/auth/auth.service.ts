@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   //users/select-categories-and-get-stories
-  private apiUrl = 'http://127.0.0.1:8000/api/users/register';
-
+  // private apiUrl = 'http://127.0.0.1:8000/api/users/register';
+  private apiUrl = 'https://whitesmoke-coyote-648419.hostingersite.com/api/users/register';
 
   constructor(private http: HttpClient) {}
 
@@ -16,8 +16,8 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/users/register`, userData);
   }
 
-  // login(credentials: any): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/users/login`, credentials);
-  // }
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users/login`, credentials);
+  }
 
 }

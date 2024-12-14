@@ -5,20 +5,19 @@
       <div class="form-field">
         <mat-form-field appearance="outline">
           <mat-label>Enter your email</mat-label>
-          <input 
+          <input
             matInput
             placeholder="pat@example.com"
             (blur)="updateErrorMessage()"
             required
-            [(ngModel)]="credentials.email"   
+            [(ngModel)]="credentials.email"
             name="email"
             id="email"
-            />
+          />
           @if (email.invalid) {
-            <mat-error>{{errorMessage()}}</mat-error>
+          <mat-error>{{ errorMessage() }}</mat-error>
           }
         </mat-form-field>
-
 
         <!-- <input class="input-text"
          type="email" 
@@ -30,7 +29,14 @@
       <div class="form-field">
         <mat-form-field appearance="outline">
           <mat-label>Enter your password</mat-label>
-          <input matInput [type]="hide() ? 'password' : 'text'" required [(ngModel)]="credentials.password" name="password" id="password"/>
+          <input
+            matInput
+            [type]="hide() ? 'password' : 'text'"
+            required
+            [(ngModel)]="credentials.password"
+            name="password"
+            id="password"
+          />
           <button
             mat-icon-button
             matSuffix
@@ -38,7 +44,7 @@
             [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide()"
           >
-            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
         </mat-form-field>
         <!-- <input
@@ -62,7 +68,9 @@
     <p class="register-link">
       Don't have an account?
       <b>
-        <u class="register" style="cursor: pointer;" routerLink="/register">Register</u>
+        <u class="register" style="cursor: pointer" routerLink="/register"
+          >Register</u
+        >
       </b>
     </p>
   </div>

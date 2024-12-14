@@ -8,8 +8,9 @@ import { response } from 'express';
 export class CategoryService {
 
   //1 adding api url  (comments by asmaa)
-  private apiUrl = 'http://127.0.0.1:8000/api/categories';
-  
+  // private apiUrl = 'http://127.0.0.1:8000/api/categories';
+  private apiUrl = 'https://whitesmoke-coyote-648419.hostingersite.com/api/categories';
+
   //2 get all categories
   constructor(private http: HttpClient) { }
   getAllCategories(): Observable<any> {

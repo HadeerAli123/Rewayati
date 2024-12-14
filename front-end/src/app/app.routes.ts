@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -18,35 +19,33 @@ import { DashboardComponent } from './user/dashboard/dashboard.component';
 import { ShowAllCategoriesComponent } from './admin/show-all-categories/show-all-categories.component';
 import { StoryDetailsComponent } from './components/story-details/story-details.component';
 import { StoryChaptersComponent } from './components/story-chapters/story-chapters.component';
-import { Component } from '@angular/core';
 import { ContactComponent } from './admin/contact/contact.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 // import { authGuard } from './auth/auth.guard';
 
-
 export const routes: Routes = [
-    {path:'',component:HomepageComponent},
-    {path:'home', component:HomepageComponent},
-    {path:'about', component:AboutComponent},
-    {path:'register', component:RegisterComponent},
-    {path:'verify', component:VerifyEmailComponent},
-    {path:'contact', component:ContactUsComponent},
-    {path:'login', component:LoginComponent},
-    {path:'forgot/password', component:ForgotPasswordComponent},
-    {path:'category', component:CategoryComponent},
-    {path:'stories', component:AllStoriesComponent},
-    {path:'story/details', component:StoryDetailsComponent},
-    {path:'story/read', component:StoryChaptersComponent},
-    {path:'story/create', component:CreateStoryComponent},
-    {path:'story/edit', component: UpdateStoryComponent},
-    {path:'chapter/edit', component: UpdateChapterComponent},
-    {path: 'dashboard',component: DashboardComponent},
-    {path:'admin/dashboard', component:AdminDashboardComponent},
-    {path:'admin/category/show', component:ShowAllCategoriesComponent},
-    {path:'admin/contacts', component:ContactComponent},
-    {path:'chapter/create', component:CreateChapterComponent},
-    {path:'category/create', component:CreateCategoryComponent},
-    {path:'category/update/:id', component:UpdateCategoryComponent},
-    {path:'**', component:ErrorComponent}
+  { path: '', component: HomepageComponent },
+  { path: 'home', component: HomepageComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'forgot/password', component: ForgotPasswordComponent },
+  { path: 'verify', component: VerifyEmailComponent },
+  { path: 'contact', component: ContactUsComponent },
+  { path: 'category', component: CategoryComponent },
+  { path: 'stories', component: AllStoriesComponent },
+  { path: 'story/details', component: StoryDetailsComponent },
+  { path: 'story/read', component: StoryChaptersComponent },
+  { path: 'story/create', component: CreateStoryComponent },
+  { path: 'story/edit', component: UpdateStoryComponent },
+  { path: 'chapter/edit', component: UpdateChapterComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'admin/dashboard', component: AdminDashboardComponent },
+  { path: 'admin/category/show', component: ShowAllCategoriesComponent },
+  { path: 'admin/contacts', component: ContactComponent },
+  { path: 'chapter/create', component: CreateChapterComponent },
+  { path: 'category/create', component: CreateCategoryComponent },
+  { path: 'category/update/:id', component: UpdateCategoryComponent },
+  { path: '**', component: ErrorComponent },
 ];

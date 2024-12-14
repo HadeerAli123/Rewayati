@@ -1,3 +1,8 @@
-.container{
-    padding-bottom: 50px;
+.container {
+  padding-bottom: 50px;
+}
+
+img {
+  height: 500px;
+  width: 100%;
 }

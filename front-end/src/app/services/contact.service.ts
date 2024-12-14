@@ -8,8 +8,9 @@ import { Contact } from '../interfaces/contact';
 })
 export class ContactService {
 
-  
-  private apiURL = 'http://127.0.0.1:8000/api/contact-messages';
+  // private apiURL = 'http://127.0.0.1:8000/api/contact-messages';
+  private apiURL = 'https://whitesmoke-coyote-648419.hostingersite.com/api/contact-messages';
+
   constructor(private http: HttpClient) {}
 
   //add contact
