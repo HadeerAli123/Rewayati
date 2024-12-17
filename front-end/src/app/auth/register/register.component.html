@@ -58,9 +58,11 @@
                 matInput
                 [type]="hidePassword ? 'password' : 'text'"
                 formControlName="password"
+                placeholder="password"
                 required
               />
               <button
+                type="button"
                 mat-icon-button
                 matSuffix
                 (click)="togglePasswordVisibility()"
@@ -71,8 +73,15 @@
               </button>
               <mat-error
                 *ngIf="firstFormGroup.get('password')?.hasError('required')"
+                class="pb-1"
               >
                 Password is required
+              </mat-error>
+              <mat-error
+                *ngIf="firstFormGroup.get('password')?.hasError('minLength')"
+                class="pb-1"
+              >
+                Password must be at least 8 characters
               </mat-error>
             </mat-form-field>
           </div>
@@ -82,10 +91,21 @@
               <mat-label>Confirm Password</mat-label>
               <input
                 matInput
-                [type]="hidePassword ? 'password' : 'text'"
+                [type]="hideConfirmPassword ? 'password' : 'text'"
                 formControlName="confirmPassword"
+                placeholder="Confirm Password"
                 required
               />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="toggleConfirmPasswordVisibility()"
+              >
+                <mat-icon>{{
+                  hideConfirmPassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
               <mat-error
                 *ngIf="
                   firstFormGroup.get('confirmPassword')?.hasError('required')
@@ -125,25 +145,38 @@
                 type="file"
                 class="form-control w-100"
                 formControlName="image"
+                placeholder="image"
                 required
               />
             </div>
           </div>
         </div>
+
         <div class="py-3 text-end">
-          <button mat-button matStepperNext style="color: black">Next</button>
+          <button
+            mat-button
+            matStepperNext
+            type="submit"
+            class="next"
+            [disabled]="firstFormGroup.invalid"
+          >
+            Next
+          </button>
         </div>
       </form>
     </mat-step>
 
     <!-- Second Step -->
-    <mat-step [stepControl]="secondFormGroup" label="Choose your categories">
+    <mat-step
+      [stepControl]="secondFormGroup"
+      [optional]="firstFormGroup.valid"
+      label="Choose your categories"
+    >
       <form [formGroup]="secondFormGroup">
         <fieldset class="color-black">
           <legend>Choose Your Interests</legend>
-
           <div
-            *ngIf="secondFormGroup.controls['chips'].errors?.['maxSelected']"
+            *ngIf="secondFormGroup.controls['categories'].errors?.['maxSelected']"
             class="error"
           >
             You can select up to 3 categories only.
@@ -159,7 +192,8 @@
                 class="chip bounce"
                 role="switch"
                 [value]="category.category_name"
-                (change)="onChipChange($event)"
+                (change)="onCategChange($event)"
+                placeholder="category name"
                 style="--color: #fa3"
               />
             </div>
@@ -168,25 +202,32 @@
 
         <div class="py-3 d-flex justify-content-between">
           <div>
-            <button mat-button matStepperPrevious style="color: black">
+            <button
+              mat-button
+              type="button"
+              matStepperPrevious
+              class="btn-dark"
+            >
               Back
             </button>
           </div>
           <div>
-            <button mat-button matStepperNext style="color: black">Next</button>
+            <button mat-button type="button" matStepperNext class="btn-dark">
+              Next
+            </button>
           </div>
         </div>
       </form>
     </mat-step>
 
     <!-- Final Step -->
-    <mat-step>
+    <mat-step [optional]="secondFormGroup.valid">
       <ng-template matStepLabel>Register</ng-template>
       <p class="text-center p-5">
         <img
           src="images/thanks.png"
           style="height: 100px; width: 100px"
-          alt=""
+          alt="thanks"
         />
       </p>
       <div class="text-center">
@@ -194,14 +235,21 @@
           mat-button
           type="submit"
           [disabled]="!secondFormGroup.valid"
-          style="background-color: #f87f27; color: black; font-size: 18px"
+          class="btn"
+          (click)="onSubmit()"
         >
           Register
         </button>
         <br /><br />
 
-        <button mat-button matStepperPrevious style="color: black">Back</button>
-        <button mat-button style="color: black" (click)="stepper.reset()">
+        <button mat-button class="btn-black" matStepperPrevious>Back</button>
+        <button
+          mat-button
+          class="btn-black"
+          (click)="
+            stepper.reset(); firstFormGroup.reset(); secondFormGroup.reset()
+          "
+        >
           Reset
         </button>
       </div>
