@@ -1,22 +1,25 @@
 <div class="login my-5 m-auto shadow bg-white">
   <h5 class="title mb-3">Login</h5>
   <div class="container">
-    <form class="login-form" method="post" (ngSubmit)="login()">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form-field">
         <mat-form-field appearance="outline">
           <mat-label>Enter your email</mat-label>
           <input
             matInput
             placeholder="pat@example.com"
-            (blur)="updateErrorMessage()"
-            required
-            [(ngModel)]="credentials.email"
+            formControlName="email"
             name="email"
             id="email"
+            (blur)="updateErrorMessage()"
+            required
           />
-          @if (email.invalid) {
-          <mat-error>{{ errorMessage() }}</mat-error>
-          }
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Please enter a valid email
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="form-field">
@@ -25,46 +28,47 @@
           <input
             matInput
             [type]="hide() ? 'password' : 'text'"
-            required
-            [(ngModel)]="credentials.password"
+            placeholder="password"
+            formControlName="password"
             name="password"
             id="password"
+            required
           />
           <button
             mat-icon-button
             matSuffix
+            type="button"
             (click)="clickEvent($event)"
             [attr.aria-label]="'Hide password'"
             [attr.aria-pressed]="hide()"
           >
             <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
+          <mat-error
+            *ngIf="loginForm.get('password')?.hasError('required')"
+            class="pb-1"
+          >
+            Password is required
+          </mat-error>
         </mat-form-field>
-        <!-- <input
-          class="input-text"
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="loginObj.password"
-        /> -->
-        <!-- <label class="label">Password</label> -->
+      </div>
+      <div class="ps-3">
+        <a routerLink="/auth/forgot-password"> Forgot password ? </a>
+      </div>
+      <div class="error my-3 py-3" *ngIf="errorMessage()">
+        <mat-error>{{ errorMessage() }}</mat-error>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn">Login</button>
+      </div>
+      <div class="text-center">
+        <p class="register-link">
+          Don't have an account?
+          <b>
+            <u class="register" routerLink="/auth/register">Register</u>
+          </b>
+        </p>
       </div>
     </form>
-  </div>
-  <div class="ps-3">
-    <a routerLink="/forgot/password"> Forgot password ? </a>
-  </div>
-  <div class="text-center">
-    <button type="submit" class="btn">Login</button>
-  </div>
-  <div class="text-center">
-    <p class="register-link">
-      Don't have an account?
-      <b>
-        <u class="register" style="cursor: pointer" routerLink="/register"
-          >Register</u
-        >
-      </b>
-    </p>
   </div>
 </div>

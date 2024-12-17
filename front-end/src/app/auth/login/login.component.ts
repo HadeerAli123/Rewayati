@@ -25,6 +25,7 @@ import { AuthService } from '../../services/auth/auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [
+    CommonModule,
     RouterModule,
     FormsModule,
     MatFormFieldModule,
@@ -40,37 +41,46 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class LoginComponent {
   // email style
-  readonly email = new FormControl('', [Validators.required, Validators.email]);
+  // readonly email = new FormControl('', [Validators.required, Validators.email]);
   errorMessage = signal('');
 
   // password style
   hide = signal(true);
 
   // authentication
-  // loginForm: FormGroup;
-  credentials = { email: '', password: '' };
+  loginForm: FormGroup;
+  // credentials = { email: '', password: '' };
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {
-    // this.loginForm = this.fb.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   password: ['', [Validators.required]]
-    // });
+    this.loginForm = this.fb.group({
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+          ),
+        ],
+      ],
+      password: ['', [Validators.required]],
+    });
 
     //email
-    merge(this.email.statusChanges, this.email.valueChanges)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());
+    // merge(this.email.statusChanges, this.email.valueChanges)
+    //   .pipe(takeUntilDestroyed())
+    //   .subscribe(() => this.updateErrorMessage());
   }
 
   //email validation
   updateErrorMessage() {
-    if (this.email.hasError('required')) {
+    if (this.loginForm.get('email')?.hasError('required')) {
       this.errorMessage.set('You must enter a value');
-    } else if (this.email.hasError('email')) {
+    } else if (this.loginForm.get('email')?.hasError('email')) {
       this.errorMessage.set('Not a valid email');
     } else {
       this.errorMessage.set('');
@@ -84,7 +94,12 @@ export class LoginComponent {
   }
 
   login() {
-    this.authService.login(this.credentials).subscribe({
+    console.log('this.loginForm.value', this.loginForm.value);
+    if(this.loginForm.invalid) {
+      this.errorMessage.set('Form data not vaild');
+    }
+
+    this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
         localStorage.setItem('token', response.access_token);
@@ -92,7 +107,8 @@ export class LoginComponent {
       },
       error: (err) => {
         console.error('Login error:', err);
-      }
+        this.errorMessage.set(err.error.error);
+      },
     });
   }
 }
