@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService } from '../../../services/category.service';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -20,7 +20,7 @@ export class ShowAllCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
 this.categoryService.getAllCategories().subscribe((data) => {
-  console.log(data); 
+  console.log(data);
   this.categories = data;
 })  }
   // @ViewChild(MatPaginator) paginator: MatPaginator;

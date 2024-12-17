@@ -3,7 +3,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService } from '../../../services/category.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CreateCategoryComponent {
 
-  categoryForm:FormGroup; //form data and validation 
+  categoryForm:FormGroup; //form data and validation
 
   constructor(private categoryService: CategoryService){
     this.categoryForm = new FormGroup({
@@ -37,7 +37,7 @@ export class CreateCategoryComponent {
         }
       })
     } else{
-      alert('Please enter a valid category name.'); 
+      alert('Please enter a valid category name.');
     }
   }
 }
