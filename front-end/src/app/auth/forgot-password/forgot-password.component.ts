@@ -1,81 +1,85 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal , OnInit  } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, signal, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
-  standalone:true,
+  standalone: true,
   imports: [
-    RouterModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
-    MatButtonModule, MatIconModule, CommonModule,MatIconModule],
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    CommonModule,
+    MatIconModule,
+  ],
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+  styleUrl: './forgot-password.component.css',
 })
 export class ForgotPasswordComponent implements OnInit {
-  
-  passwordForm:FormGroup ;
-  hideCurrentPassword: boolean =true;
-  hideNewPassword: boolean =true;
-  hideConfirmPassword: boolean =true;
- 
-  constructor(private fb: FormBuilder) {
-    this.passwordForm = this.fb.group({
-      currentPassword: ['',[
-        Validators.required,
-        Validators.minLength(8)
-      ]],
-      newPassword: ['',
-       [ Validators.required,
-        Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
-      ]],
-      confirmPassword: ['',
-       [ Validators.required,
-        Validators.minLength(8),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
-      ], ]
-    },
-  { 
-    validator: this.passwordMatchValidator 
-  });
-  };
+  forgetPasswordForm: FormGroup;
+  errorMessage = signal('');
 
-  ngOnInit(): void{
-    
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.forgetPasswordForm = this.fb.group({
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+          ),
+        ],
+      ],
+    });
   }
 
-   togglePasswordVisibility(field: string) {
-    if (field === 'current') {
-      this.hideCurrentPassword = !this.hideCurrentPassword;
-    } else if (field === 'new') {
-      this.hideNewPassword = !this.hideNewPassword;
-    } else if (field === 'confirm') {
-      this.hideConfirmPassword = !this.hideConfirmPassword;
+  ngOnInit(): void {}
+
+  updateErrorMessage(): void {
+    if (this.forgetPasswordForm.get('email')?.hasError('required')) {
+      this.errorMessage.set('You must enter a value');
+    } else if (this.forgetPasswordForm.get('email')?.hasError('email')) {
+      this.errorMessage.set('Not a valid email');
+    } else {
+      this.errorMessage.set('');
     }
   }
 
-  passwordMatchValidator(form: FormGroup): {[key: string]: boolean} | null {
-    const newPassword = form.get('newPassword')?.value;
-    const confirmPassword = form.get('confirmPassword')?.value;
-    
-    if (newPassword && confirmPassword && newPassword !== confirmPassword) {
-      return { 'passwordMismatch': true };
-    }
-    return null;
-  }
-  onSubmit() {
-    this.passwordForm.markAllAsTouched(); 
-      if (this.passwordForm.invalid) {
+  forgetPassword() {
+    if (this.forgetPasswordForm.invalid) {
       console.log('Form is invalid');
-      return; 
+      this.forgetPasswordForm.markAllAsTouched();
+      return;
     }
-  
-    const formData = this.passwordForm.value;
+
     console.log('Form submitted successfully');
+    this.authService.forgetPassword(this.forgetPasswordForm.value.email).subscribe({
+      next: (response) => {
+        console.log('forgetPassword successful:', response);
+      },
+      error: (err) => {
+        console.error('Login error:', err);
+        this.errorMessage.set(err.error.message);
+      },
+    });
   }
 }

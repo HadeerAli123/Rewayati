@@ -1,8 +1,11 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from '../services/auth/auth.guard';
 
 export const adminRoutes: Routes = [
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import('../../app/admin/admin-dashboard/admin-dashboard.component').then(
         (mod) => mod.AdminDashboardComponent
@@ -11,6 +14,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'chapter/create',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import('../../app/admin/create-chapter/create-chapter.component').then(
         (mod) => mod.CreateChapterComponent
@@ -19,6 +24,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'chapter/edit',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import('../../app/admin/update-chapter/update-chapter.component').then(
         (mod) => mod.UpdateChapterComponent
@@ -27,6 +34,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'story/create',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import('../../app/admin/create-story/create-story.component').then(
         (mod) => mod.CreateStoryComponent
@@ -35,6 +44,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'story/edit',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import('../../app/admin/update-story/update-story.component').then(
         (mod) => mod.UpdateStoryComponent
@@ -43,6 +54,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'category/show',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import(
         '../../app/admin/category/show-all-categories/show-all-categories.component'
@@ -51,6 +64,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'category/create',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import(
         '../../app/admin/category/create-category/create-category.component'
@@ -59,6 +74,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'category/update/:id',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import(
         '../../app/admin/category/update-category/update-category.component'
@@ -67,6 +84,8 @@ export const adminRoutes: Routes = [
 
   {
     path: 'admin/contacts',
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
     loadComponent: () =>
       import('../../app/admin/contact/contact.component').then(
         (mod) => mod.ContactComponent

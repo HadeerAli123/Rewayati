@@ -1,66 +1,3 @@
-/* .form-container {
-    display: grid;
-    place-content: center;
-    height: auto;
-    width: 80%;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-}
-
-h4 {
-    color: #8B5E3C;
-}
-
-.login-btn {
-    background-color: #8B5E3C;
-    color: #F4F1EA;
-    font-weight: bolder;
-    padding: 6px 20px;
-    font-size: 14px;
-}
-
-.login-btn:hover {
-    background-color: #F9DC5C;
-    color: #8B5E3C;
-}
-
-.register {
-    color: #8B5E3C;
-}
-
-.register:hover {
-    color: #F9DC5C;
-}
-
-.register-link {
-    font-size: 12px;
-}
-
-img {
-    height: auto;
-    max-width: 100%;
-    object-fit: contain;
-}
-
-label{
-    font-size: 14px;
-}
-
-input{
-    font-size: 14px;
-    padding: 8px;
-    border: none;
-    border-radius: 0px !important;
-    border-bottom: 1px solid #8B5E3C;
-    margin-bottom: 10px;
-}
-
-input:focus{
-    outline: none;
-    border-color: #8B5E3C;
-} */
-
 .login {
   max-width: 500px;
   margin: 50px auto;
@@ -143,12 +80,12 @@ input:focus{
   color: #fff;
 }
 
-.register {
+.action-btn {
   cursor: pointer;
   color: #f87f27;
 }
 
-.register:hover {
+.action-btn:hover {
   color: #b15443;
 }
 

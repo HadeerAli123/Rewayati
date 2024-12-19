@@ -53,7 +53,7 @@
         </mat-form-field>
       </div>
       <div class="ps-3">
-        <a routerLink="/auth/forgot-password"> Forgot password ? </a>
+        <a routerLink="/auth/forget-password"> Forgot password ? </a>
       </div>
       <div class="error my-3 py-3" *ngIf="errorMessage()">
         <mat-error>{{ errorMessage() }}</mat-error>
@@ -62,10 +62,10 @@
         <button type="submit" class="btn">Login</button>
       </div>
       <div class="text-center">
-        <p class="register-link">
+        <p class="action-btn-link">
           Don't have an account?
           <b>
-            <u class="register" routerLink="/auth/register">Register</u>
+            <u class="action-btn" routerLink="/auth/register">Register</u>
           </b>
         </p>
       </div>

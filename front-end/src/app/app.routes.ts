@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-// import { authGuard } from './auth/auth.guard';
+import { AuthGuard } from './services/auth/auth.guard';
+// import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -25,7 +26,7 @@ export const routes: Routes = [
 
   {
     path: 'category',
-    canActivate: [],
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('../app/components/category/category.component').then(
         (mod) => mod.CategoryComponent
@@ -34,16 +35,16 @@ export const routes: Routes = [
 
   {
     path: 'stories',
-    canActivate: [],
+    canActivate: [AuthGuard],
     loadComponent: () =>
-      import('../app/components/all-stories/all-stories.component').then(
+      import('../app/components/stories/all-stories/all-stories.component').then(
         (mod) => mod.AllStoriesComponent
       ),
   },
 
   {
     path: 'story/details',
-    canActivate: [],
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('../app/components/story-details/story-details.component').then(
         (mod) => mod.StoryDetailsComponent
@@ -52,7 +53,7 @@ export const routes: Routes = [
 
   {
     path: 'story/read',
-    canActivate: [],
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('../app/components/story-chapters/story-chapters.component').then(
         (mod) => mod.StoryChaptersComponent
@@ -61,7 +62,7 @@ export const routes: Routes = [
 
   {
     path: 'dashboard',
-    canActivate: [],
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('../app/user/dashboard/dashboard.component').then(
         (mod) => mod.DashboardComponent
@@ -70,7 +71,7 @@ export const routes: Routes = [
 
   {
     path: 'admin/',
-    canActivate: [],
+    canActivate: [AuthGuard],
     canActivateChild: [],
     loadChildren: () =>
       import('../app/admin/admin.module').then(

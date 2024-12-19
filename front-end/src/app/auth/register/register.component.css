@@ -68,6 +68,11 @@
   padding-left: 10px;
 }
 
+img {
+  height: 100px;
+  width: 100px;
+}
+
 .btn {
   background-color: #f87f27;
   color: #262628;
@@ -82,7 +87,7 @@
 }
 
 .btn-dark {
-  color: black
+  color: black;
 }
 
 input[type="radio"]:checked {

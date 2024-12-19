@@ -224,12 +224,11 @@
     <mat-step [optional]="secondFormGroup.valid">
       <ng-template matStepLabel>Register</ng-template>
       <p class="text-center p-5">
-        <img
-          src="images/thanks.png"
-          style="height: 100px; width: 100px"
-          alt="thanks"
-        />
+        <img src="images/thanks.png" alt="thanks" />
       </p>
+      <div class="error my-3 py-3" *ngIf="errorMessage()">
+        <mat-error>{{ errorMessage() }}</mat-error>
+      </div>
       <div class="text-center">
         <button
           mat-button

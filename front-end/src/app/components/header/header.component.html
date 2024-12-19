@@ -19,16 +19,16 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ms-auto">
-      <li class="nav-item px-3">
+      <li *ngIf="!router.url.includes('auth')" class="nav-item px-3">
         <a routerLink="home" routerLinkActive="active" class="nav-link">Home</a>
       </li>
-      <li class="nav-item px-3">
+      <li *ngIf="!router.url.includes('auth')" class="nav-item px-3">
         <a routerLink="about" routerLinkActive="active" class="nav-link"
           >About</a
         >
       </li>
 
-      <li class="nav-item px-3 dropdown">
+      <li *ngIf="!router.url.includes('auth')" class="nav-item px-3 dropdown">
         <a
           routerLinkActive="active"
           class="nav-link dropdown-toggle"
@@ -52,17 +52,17 @@
           </div>
         </ul>
       </li>
-      <li class="nav-item px-3">
+      <li *ngIf="!router.url.includes('auth')" class="nav-item px-3">
         <a routerLink="stories" routerLinkActive="active" class="nav-link"
           >Stories</a
         >
       </li>
-      <li class="nav-item px-3">
+      <li *ngIf="!router.url.includes('auth')" class="nav-item px-3">
         <a routerLink="contact" routerLinkActive="active" class="nav-link"
           >Contact</a
         >
       </li>
-      <li class="nav-item px-3">
+      <li *ngIf="!router.url.includes('auth')" class="nav-item px-3">
         <a routerLink="story/create" routerLinkActive="active" class="nav-link"
           >Write</a
         >
@@ -70,12 +70,12 @@
     </ul>
     <ul class="navbar-nav ms-auto">
       <li class="nav-item px-3">
-        <a routerLink="login" routerLinkActive="active" class="nav-link"
+        <a routerLink="auth/login" routerLinkActive="active" class="nav-link"
           >Login</a
         >
       </li>
       <li class="nav-item px-3">
-        <a routerLink="register" routerLinkActive="active" class="nav-link"
+        <a routerLink="auth/register" routerLinkActive="active" class="nav-link"
           >Register</a
         >
       </li>

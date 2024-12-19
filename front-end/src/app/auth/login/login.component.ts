@@ -77,7 +77,7 @@ export class LoginComponent {
   }
 
   //email validation
-  updateErrorMessage() {
+  updateErrorMessage(): void {
     if (this.loginForm.get('email')?.hasError('required')) {
       this.errorMessage.set('You must enter a value');
     } else if (this.loginForm.get('email')?.hasError('email')) {
@@ -95,19 +95,21 @@ export class LoginComponent {
 
   login() {
     console.log('this.loginForm.value', this.loginForm.value);
-    if(this.loginForm.invalid) {
+    if (this.loginForm.invalid) {
       this.errorMessage.set('Form data not vaild');
+      this.loginForm.markAllAsTouched();
     }
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
-        localStorage.setItem('token', response.access_token);
-        this.router.navigate(['/dashboard']);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        this.router.navigateByUrl('/home');
       },
       error: (err) => {
         console.error('Login error:', err);
-        this.errorMessage.set(err.error.error);
+        this.errorMessage.set(err.error.message);
       },
     });
   }

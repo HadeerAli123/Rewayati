@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ChangeDetectionStrategy, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -41,11 +41,14 @@ export class RegisterComponent {
   hideConfirmPassword: boolean = true;
   categories: any[] = [];
   selectedChips: any[] = [];
+  errorMessage = signal('');
 
   constructor(
     private _formBuilder: FormBuilder,
     private categoryService: CategoryService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private categoriesService: CategoryService
   ) {
     this.firstFormGroup = this._formBuilder.group(
       {
@@ -73,7 +76,8 @@ export class RegisterComponent {
         confirmPassword: ['', Validators.required],
         gender: ['', Validators.required],
         image: ['', Validators.required],
-        role: ['user', Validators.required],
+        role: ['reader', Validators.required],
+        device_name: ['DESKTOP-KQR577Q', Validators.required ]
       },
       { validators: this.passwordMatchValidator }
     );
@@ -130,10 +134,35 @@ export class RegisterComponent {
   onSubmit() {
     console.log(this.firstFormGroup.value);
     console.log(this.secondFormGroup.value);
-
-    this.authService.register({
-      ...this.firstFormGroup.value,
-      ...this.secondFormGroup.value,
-    });
+    if (this.firstFormGroup.invalid || this.secondFormGroup.invalid) {
+      this.errorMessage.set('Form data not vaild');
+    }
+    this.authService
+      .register({
+        ...this.firstFormGroup.value,
+      })
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          console.log([...this.secondFormGroup.value]);
+          this.categoriesService
+            .sendSelectedUserCategory([...this.secondFormGroup.value])
+            .subscribe({
+              next: (response) => {
+                console.log(response);
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('user', JSON.stringify(response.user));
+                this.router.navigateByUrl('/home');
+              }, error(err) {
+                console.log(err);
+                this.errorMessage.set(err.error.message);
+              },
+            });
+        },
+        error: (error) => {
+          console.log('error', error);
+          this.errorMessage.set(error.error.message);
+        },
+      });
   }
 }

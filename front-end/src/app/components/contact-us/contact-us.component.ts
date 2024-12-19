@@ -1,4 +1,5 @@
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -10,7 +11,6 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { merge } from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../interfaces/contact';
 
