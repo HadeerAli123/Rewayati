@@ -1,11 +1,11 @@
 <section>
   <mat-stepper [linear]="isLinear" #stepper class="register">
     <!-- First Step -->
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup" class="register-form">
+    <mat-step [stepControl]="registrationForm">
+      <form [formGroup]="registrationForm" class="register-form mt-3">
         <ng-template matStepLabel>Fill out your information</ng-template>
         <!-- Username -->
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-6">
             <mat-form-field appearance="outline" class="form-field">
               <mat-label>Username</mat-label>
@@ -17,14 +17,26 @@
                 required
               />
               <mat-error
-                *ngIf="firstFormGroup.get('username')?.hasError('required')"
+                class="mb-2"
+                *ngIf="
+                  registrationForm.get('username')?.touched &&
+                  registrationForm.get('username')?.hasError('required')
+                "
               >
                 Username is required
               </mat-error>
               <mat-error
-                *ngIf="firstFormGroup.get('username')?.hasError('maxlength')"
+                class="mb-2"
+                *ngIf="registrationForm.get('username')?.hasError('maxlength')"
               >
                 Maximum length is 10 characters
+              </mat-error>
+              <mat-error
+                id="usernameError"
+                class="mb-2"
+                *ngIf="registrationForm.get('username')?.hasError('notCorrect')"
+              >
+                {{ registrationForm.get("username")?.getError("notCorrect") }}
               </mat-error>
             </mat-form-field>
           </div>
@@ -39,17 +51,31 @@
                 required
               />
               <mat-error
-                *ngIf="firstFormGroup.get('email')?.hasError('required')"
+                class="mb-2"
+                *ngIf="
+                  registrationForm.get('email')?.touched &&
+                  registrationForm.get('email')?.hasError('required')
+                "
               >
                 Email is required
               </mat-error>
-              <mat-error *ngIf="firstFormGroup.get('email')?.hasError('email')">
+              <mat-error
+                class="mb-3"
+                *ngIf="registrationForm.get('email')?.hasError('email')"
+              >
                 Please enter a valid email
+              </mat-error>
+              <mat-error
+                id="emailError"
+                class="mb-2"
+                *ngIf="registrationForm.get('email')?.hasError('notCorrect')"
+              >
+                {{ registrationForm.get("email")?.getError("notCorrect") }}
               </mat-error>
             </mat-form-field>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-6">
             <!-- Password -->
             <mat-form-field appearance="outline" class="form-field">
@@ -72,16 +98,27 @@
                 }}</mat-icon>
               </button>
               <mat-error
-                *ngIf="firstFormGroup.get('password')?.hasError('required')"
-                class="pb-1"
+                *ngIf="
+                  registrationForm.get('password')?.touched &&
+                  registrationForm.get('password')?.hasError('required')
+                "
+                class="pb-1 mb-2"
               >
                 Password is required
               </mat-error>
               <mat-error
-                *ngIf="firstFormGroup.get('password')?.hasError('minLength')"
+                class="mb-2"
+                *ngIf="registrationForm.get('password')?.hasError('minLength')"
                 class="pb-1"
               >
                 Password must be at least 8 characters
+              </mat-error>
+              <mat-error
+                id="passwordError"
+                class="mb-3"
+                *ngIf="registrationForm.get('password')?.hasError('notCorrect')"
+              >
+                {{ registrationForm.get("password")?.getError("notCorrect") }}
               </mat-error>
             </mat-form-field>
           </div>
@@ -107,13 +144,18 @@
                 }}</mat-icon>
               </button>
               <mat-error
+                class="mb-1"
                 *ngIf="
-                  firstFormGroup.get('confirmPassword')?.hasError('required')
+                  registrationForm.get('confirmPassword')?.touched &&
+                  registrationForm.get('confirmPassword')?.hasError('required')
                 "
               >
                 Confirm password is required
               </mat-error>
-              <mat-error *ngIf="firstFormGroup.hasError('passwordMismatch')">
+              <mat-error
+                class="mb-2"
+                *ngIf="registrationForm.hasError('passwordMismatch')"
+              >
                 Passwords do not match
               </mat-error>
             </mat-form-field>
@@ -125,16 +167,32 @@
             <mat-radio-group
               formControlName="gender"
               class="form-field"
+              name="gender"
               required
             >
               <label>Gender</label>
-              <mat-radio-button value="male">Male</mat-radio-button>
-              <mat-radio-button value="female">Female</mat-radio-button>
+              <mat-radio-button value="male" name="gender"
+                >Male</mat-radio-button
+              >
+              <mat-radio-button value="female" name="gender"
+                >Female</mat-radio-button
+              >
             </mat-radio-group>
             <mat-error
-              *ngIf="firstFormGroup.get('gender')?.hasError('required')"
+              class="mb-3"
+              *ngIf="
+                registrationForm.get('gender')?.touched &&
+                registrationForm.get('gender')?.hasError('required')
+              "
             >
               Gender is required
+            </mat-error>
+            <mat-error
+              id="genderError"
+              class="mb-3"
+              *ngIf="registrationForm.get('gender')?.hasError('notCorrect')"
+            >
+              {{ registrationForm.get("gender")?.getError("notCorrect") }}
             </mat-error>
           </div>
           <div class="col-md-6">
@@ -144,35 +202,76 @@
               <input
                 type="file"
                 class="form-control w-100"
-                formControlName="image"
                 placeholder="image"
+                (change)="onFileSelect($event)"
                 required
               />
+              <input
+                type="text"
+                class="form-control w-100"
+                placeholder="image"
+                hidden
+                formControlName="image"
+                required
+              />
+              <img
+                *ngIf="imagePreview"
+                [src]="imagePreview"
+                alt="Image Preview"
+                class="image-preview"
+              />
+
+              <mat-error
+                class="mb-3"
+                *ngIf="
+                  registrationForm.get('image')?.touched &&
+                  registrationForm.get('image')?.hasError('required')
+                "
+              >
+                Image is required
+              </mat-error>
+              <mat-error
+                id="imageError"
+                class="mb-3"
+                *ngIf="registrationForm.get('image')?.hasError('notCorrect')"
+              >
+                {{ registrationForm.get("image")?.getError("notCorrect") }}
+              </mat-error>
             </div>
           </div>
         </div>
 
-        <div class="py-3 text-end">
+        <div class="error my-3 py-3" *ngIf="errorMessage()">
+          <span
+            ><mat-error>{{ errorMessage() }}</mat-error></span
+          >
+        </div>
+        <br />
+        <div class="text-end my-3">
           <button
             mat-button
-            matStepperNext
-            type="submit"
-            class="next"
-            [disabled]="firstFormGroup.invalid"
+            type="button"
+            class="btn-black"
+            (click)="stepper.reset(); registrationForm.reset()"
           >
-            Next
+            Reset
+          </button>
+          <button
+            mat-button
+            type="submit"
+            [disabled]="!registrationForm.valid"
+            class="btn"
+            (click)="onSubmit()"
+          >
+            Register
           </button>
         </div>
       </form>
     </mat-step>
 
-    <!-- Second Step -->
-    <mat-step
-      [stepControl]="secondFormGroup"
-      [optional]="firstFormGroup.valid"
-      label="Choose your categories"
-    >
-      <form [formGroup]="secondFormGroup">
+    <!-- second Step -->
+    <mat-step [stepControl]="secondFormGroup" label="Choose your categories">
+      <form [formGroup]="secondFormGroup" (ngSubmit)="storeCategory()">
         <fieldset class="color-black">
           <legend>Choose Your Interests</legend>
           <div
@@ -192,7 +291,7 @@
                 class="chip bounce"
                 role="switch"
                 [value]="category.category_name"
-                (change)="onCategChange($event)"
+                (change)="onCategChange($event, category)"
                 placeholder="category name"
                 style="--color: #fa3"
               />
@@ -213,16 +312,16 @@
           </div>
           <div>
             <button mat-button type="button" matStepperNext class="btn-dark">
-              Next
+              Store
             </button>
           </div>
         </div>
       </form>
     </mat-step>
 
-    <!-- Final Step -->
-    <mat-step [optional]="secondFormGroup.valid">
-      <ng-template matStepLabel>Register</ng-template>
+    <!-- final Step -->
+    <mat-step>
+      <ng-template matStepLabel>You Successfully Registered Now</ng-template>
       <p class="text-center p-5">
         <img src="images/thanks.png" alt="thanks" />
       </p>
@@ -230,27 +329,11 @@
         <mat-error>{{ errorMessage() }}</mat-error>
       </div>
       <div class="text-center">
-        <button
-          mat-button
-          type="submit"
-          [disabled]="!secondFormGroup.valid"
-          class="btn"
-          (click)="onSubmit()"
-        >
-          Register
+        <button mat-button type="button" class="btn" (click)="onSubmit()">
+          Redirect to home
         </button>
-        <br /><br />
-
+        <br />
         <button mat-button class="btn-black" matStepperPrevious>Back</button>
-        <button
-          mat-button
-          class="btn-black"
-          (click)="
-            stepper.reset(); firstFormGroup.reset(); secondFormGroup.reset()
-          "
-        >
-          Reset
-        </button>
       </div>
     </mat-step>
   </mat-stepper>

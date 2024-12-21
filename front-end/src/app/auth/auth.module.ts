@@ -6,8 +6,10 @@ import { authRoutes } from './auth.routes';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(authRoutes)
-  ], exports: []
+    RouterModule.forChild(authRoutes),
+  ],
+  providers:[],
+  exports: []
 })
 
 export class AuthModule {}

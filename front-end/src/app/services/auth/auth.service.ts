@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // private apiUrl = 'http://127.0.0.1:8000/api/users/register';
+
+  private isLoggedIn$ = new BehaviorSubject<boolean>(false);
   private apiUrl = 'https://whitesmoke-coyote-648419.hostingersite.com/api';
 
   constructor(private http: HttpClient) {}
@@ -29,6 +30,14 @@ export class AuthService {
 
   resetPassword(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/users/reset`, data);
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  isAuthenticated() {
+    return !!this.getToken();
   }
 
   getUserRole(): string {

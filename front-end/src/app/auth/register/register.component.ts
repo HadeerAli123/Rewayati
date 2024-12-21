@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { Router, RouterModule } from '@angular/router';
 import { ChangeDetectionStrategy, signal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { CategoryService } from '../../services/category.service';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -35,22 +36,25 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class RegisterComponent {
   isLinear = false;
-  firstFormGroup: FormGroup;
+  registrationForm: FormGroup;
   secondFormGroup: FormGroup;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
   categories: any[] = [];
   selectedChips: any[] = [];
   errorMessage = signal('');
+  imagePreview: string | null = null;
+  @ViewChild('stepper', { static: false }) stepper?: MatStepper;
 
   constructor(
     private _formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private authService: AuthService,
     private router: Router,
-    private categoriesService: CategoryService
+    private categoriesService: CategoryService,
+    private deviceService: DeviceDetectorService
   ) {
-    this.firstFormGroup = this._formBuilder.group(
+    this.registrationForm = this._formBuilder.group(
       {
         username: ['', [Validators.required, Validators.maxLength(10)]],
         email: [
@@ -63,21 +67,17 @@ export class RegisterComponent {
             ),
           ],
         ],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.minLength(8),
-            // Validators.pattern(
-            //   '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$'
-            // ),
-          ],
-        ],
+        password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', Validators.required],
         gender: ['', Validators.required],
         image: ['', Validators.required],
         role: ['reader', Validators.required],
-        device_name: ['DESKTOP-KQR577Q', Validators.required ]
+        device_name: [
+          deviceService.getDeviceInfo().device
+            ? deviceService.getDeviceInfo().device
+            : deviceService.getDeviceInfo().deviceType,
+          Validators.required,
+        ],
       },
       { validators: this.passwordMatchValidator }
     );
@@ -107,15 +107,25 @@ export class RegisterComponent {
 
   onFileSelect(event: any) {
     const file = event.target.files[0];
+
+    this.registrationForm.patchValue({ image: file });
+
+    this.registrationForm.get('image')?.updateValueAndValidity();
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader?.readAsDataURL(file);
   }
 
-  onCategChange(event: any): void {
+  onCategChange(event: any, category: any): void {
     const value = event.target.value;
     const isChecked = event.target.checked;
     if (isChecked) {
-      this.selectedChips.push(value);
+      this.selectedChips.push(category.id);
     } else {
-      const index = this.selectedChips.indexOf(value);
+      const index = this.selectedChips.indexOf(category.id);
       if (index !== -1) {
         this.selectedChips.splice(index, 1);
       }
@@ -132,36 +142,54 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    console.log(this.firstFormGroup.value);
-    console.log(this.secondFormGroup.value);
-    if (this.firstFormGroup.invalid || this.secondFormGroup.invalid) {
+    console.log(this.registrationForm.value);
+    if (this.registrationForm.invalid) {
       this.errorMessage.set('Form data not vaild');
+      return;
     }
-    this.authService
-      .register({
-        ...this.firstFormGroup.value,
-      })
+
+    const formData = new FormData();
+    formData.append('username', this.registrationForm.get('username')?.value);
+    formData.append('email', this.registrationForm.get('email')?.value);
+    formData.append('password', this.registrationForm.get('password')?.value);
+    formData.append('image', this.registrationForm.get('image')?.value);
+    formData.append('gender', this.registrationForm.get('gender')?.value);
+    formData.append('role', this.registrationForm.get('role')?.value);
+    formData.append(
+      'device_name',
+      this.registrationForm.get('device_name')?.value
+    );
+
+    this.authService.register(formData).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('user', JSON.stringify(response.user));
+        this.stepper?.next();
+      },
+      error: (error) => {
+        Object.keys(error.error.errors)?.forEach((element: any) => {
+          this.registrationForm
+            .get(element)
+            ?.setErrors({ notCorrect: error.error.errors[element] });
+        });
+        this.errorMessage.set('Not All Fields Value are valid Check again');
+      },
+    });
+  }
+
+  storeCategory() {
+    console.log([...this.secondFormGroup.value]);
+    this.categoriesService
+      .sendSelectedUserCategory([...this.secondFormGroup.value])
       .subscribe({
         next: (response) => {
           console.log(response);
-          console.log([...this.secondFormGroup.value]);
-          this.categoriesService
-            .sendSelectedUserCategory([...this.secondFormGroup.value])
-            .subscribe({
-              next: (response) => {
-                console.log(response);
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('user', JSON.stringify(response.user));
-                this.router.navigateByUrl('/home');
-              }, error(err) {
-                console.log(err);
-                this.errorMessage.set(err.error.message);
-              },
-            });
+
+          this.router.navigateByUrl('/home');
         },
-        error: (error) => {
-          console.log('error', error);
-          this.errorMessage.set(error.error.message);
+        error: (err) => {
+          console.log(err);
+          this.errorMessage.set(err.error.message);
         },
       });
   }

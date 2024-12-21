@@ -54,6 +54,7 @@ export const routes: Routes = [
   {
     path: 'story/read',
     canActivate: [AuthGuard],
+
     loadComponent: () =>
       import('../app/components/story-chapters/story-chapters.component').then(
         (mod) => mod.StoryChaptersComponent
@@ -70,8 +71,9 @@ export const routes: Routes = [
   },
 
   {
-    path: 'admin/',
+    path: 'admin',
     canActivate: [AuthGuard],
+    data:  {role: 'admin'},
     canActivateChild: [],
     loadChildren: () =>
       import('../app/admin/admin.module').then(

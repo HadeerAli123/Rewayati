@@ -73,6 +73,15 @@ img {
   width: 100px;
 }
 
+.image-preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
 .btn {
   background-color: #f87f27;
   color: #262628;
@@ -119,6 +128,8 @@ input[type="radio"]:checked {
 
 mat-form-field {
   width: 100%;
+  display: contents;
+  margin-bottom: 5px;
   border-color: #262628;
 }
 
