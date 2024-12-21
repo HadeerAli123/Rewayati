@@ -35,7 +35,7 @@ export class CategoryService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  sendSelectedUserCategory(categoriesIds: any[]) {
+  sendSelectedUserCategory(categoriesIds: any[]): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/users/select-categories-and-get-stories`,
       { categoriesIds }

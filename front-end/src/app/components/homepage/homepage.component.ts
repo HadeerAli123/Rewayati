@@ -13,5 +13,5 @@ import { BookCollectionComponent } from "./book-collection/book-collection.compo
 })
 export class HomepageComponent {
 
-
+  constructor() {}
 }

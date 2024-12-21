@@ -25,7 +25,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getUserRole
+    this.isAuthorized = this.authService.isAuthenticated();
   }
-
 }
