@@ -3,92 +3,113 @@ import { AuthGuard } from '../services/auth/auth.guard';
 
 export const adminRoutes: Routes = [
   {
-    path: 'dashboard',
+    path: '',
     canActivate: [AuthGuard],
     data: { role: 'admin' },
     loadComponent: () =>
-      import('../../app/admin/admin-dashboard/admin-dashboard.component').then(
-        (mod) => mod.AdminDashboardComponent
+      import('../../app/admin/admin.component').then(
+        (mod) => mod.AdminComponent
       ),
-  },
+    children: [
+      {
+        path: 'users',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('../../app/admin/users/users.component').then(
+            (mod) => mod.UsersComponent
+          ),
+      },
 
-  {
-    path: 'chapter/create',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import('../../app/admin/create-chapter/create-chapter.component').then(
-        (mod) => mod.CreateChapterComponent
-      ),
-  },
+      {
+        path: 'chapter/create',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./chapter/create-chapter/create-chapter.component').then(
+            (mod) => mod.CreateChapterComponent
+          ),
+      },
 
-  {
-    path: 'chapter/edit',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import('../../app/admin/update-chapter/update-chapter.component').then(
-        (mod) => mod.UpdateChapterComponent
-      ),
-  },
+      {
+        path: 'chapter/edit',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./chapter/create-chapter/create-chapter.component').then(
+            (mod) => mod.CreateChapterComponent
+          ),
+      },
 
-  {
-    path: 'story/create',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import('../../app/admin/create-story/create-story.component').then(
-        (mod) => mod.CreateStoryComponent
-      ),
-  },
+      {
+        path: 'stories',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./story/stories-list/stories-list.component').then(
+            (mod) => mod.StoriesListComponent
+          ),
+      },
 
-  {
-    path: 'story/edit',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import('../../app/admin/update-story/update-story.component').then(
-        (mod) => mod.UpdateStoryComponent
-      ),
-  },
+      {
+        path: 'story/create',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./story/create-story/create-story.component').then(
+            (mod) => mod.CreateStoryComponent
+          ),
+      },
 
-  {
-    path: 'category/show',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import(
-        '../../app/admin/category/show-all-categories/show-all-categories.component'
-      ).then((mod) => mod.ShowAllCategoriesComponent),
-  },
+      {
+        path: 'story/edit',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./story/create-story/create-story.component').then(
+            (mod) => mod.CreateStoryComponent
+          ),
+      },
 
-  {
-    path: 'category/create',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import(
-        '../../app/admin/category/create-category/create-category.component'
-      ).then((mod) => mod.CreateCategoryComponent),
-  },
+      {
+        path: 'categories',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import(
+            '../../app/admin/category/show-all-categories/show-all-categories.component'
+          ).then((mod) => mod.ShowAllCategoriesComponent),
+      },
 
-  {
-    path: 'category/update/:id',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import(
-        '../../app/admin/category/update-category/update-category.component'
-      ).then((mod) => mod.UpdateCategoryComponent),
-  },
+      {
+        path: 'category/create',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import(
+            '../../app/admin/category/create-category/create-category.component'
+          ).then((mod) => mod.CreateCategoryComponent),
+      },
 
-  {
-    path: 'admin/contacts',
-    canActivate: [AuthGuard],
-    data: { role: 'admin' },
-    loadComponent: () =>
-      import('../../app/admin/contact/contact.component').then(
-        (mod) => mod.ContactComponent
-      ),
+      {
+        path: 'category/update/:id',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import(
+            '../../app/admin/category/create-category/create-category.component'
+          ).then((mod) => mod.CreateCategoryComponent),
+      },
+
+      {
+        path: 'contacts',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('../../app/admin/contact/contact.component').then(
+            (mod) => mod.ContactComponent
+          ),
+      },
+    ],
   },
 ];

@@ -1,0 +1,13 @@
+.table {
+  vertical-align: middle;
+  width: 95%;
+}
+
+.table tr {
+  text-align: center;
+}
+
+.table tr td {
+  width: 45%;
+  text-align: start !important;
+}

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryService } from '../../../services/category.service';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-show-all-categories',

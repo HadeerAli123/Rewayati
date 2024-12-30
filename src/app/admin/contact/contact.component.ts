@@ -9,36 +9,35 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  styleUrl: './contact.component.css',
 })
 export class ContactComponent {
+  contacts: Contact[] = [];
 
-  contacts : Contact[]= [];
-  
-  constructor(private contactService: ContactService) { }
+  constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
     this.contactService.getContacts().subscribe({
-      next:(response: any) => {
+      next: (response: any) => {
         this.contacts = response.data;
       },
       error: (error: any) => {
-        console.error('Error retrieving contacts:', error)}
+        console.error('Error retrieving contacts:', error);
+      },
     });
   }
 
-  deleteMessage(id:number){
-      if (confirm('Are you sure you want to delete this message?')) {
-        this.contactService.deleteMessage(id).subscribe({
-          next: () => {
-            alert('Message deleted successfully!');
-            this.contacts = this.contacts.filter(contact => contact.id!== id);
-          },
-          error: () => {
-            alert('Failed to delete message. Please try again.');
-          }
-          
-        });
-      }
+  deleteMessage(id: number) {
+    if (confirm('Are you sure you want to delete this message?')) {
+      this.contactService.deleteMessage(id).subscribe({
+        next: () => {
+          alert('Message deleted successfully!');
+          this.contacts = this.contacts.filter((contact) => contact.id !== id);
+        },
+        error: () => {
+          alert('Failed to delete message. Please try again.');
+        },
+      });
     }
+  }
 }
