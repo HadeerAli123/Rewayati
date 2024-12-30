@@ -8,8 +8,8 @@ import {
 } from "./chunk-BUCZBLGM.js";
 import "./chunk-DWOJYEBT.js";
 import "./chunk-2SIYOU7U.js";
-import "./chunk-PYS2WE23.js";
 import "./chunk-LYINPB4Y.js";
+import "./chunk-PYS2WE23.js";
 import "./chunk-AXGHJCMX.js";
 import {
   ANIMATION_MODULE_TYPE

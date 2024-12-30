@@ -9,7 +9,6 @@ import {
   PortalModule,
   TemplatePortal
 } from "./chunk-JWMYBGGW.js";
-import "./chunk-PYS2WE23.js";
 import {
   animate,
   animateChild,
@@ -20,6 +19,10 @@ import {
   transition,
   trigger
 } from "./chunk-LYINPB4Y.js";
+import "./chunk-PYS2WE23.js";
+import {
+  ControlContainer
+} from "./chunk-7QPIFQLP.js";
 import {
   BidiModule,
   Directionality,
@@ -37,9 +40,6 @@ import {
   _getFocusedElementPierceShadowDom,
   hasModifierKey
 } from "./chunk-GN3F2Q3G.js";
-import {
-  ControlContainer
-} from "./chunk-7QPIFQLP.js";
 import {
   CommonModule,
   NgTemplateOutlet

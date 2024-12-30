@@ -5,7 +5,6 @@ import {
   ScrollDispatcher,
   ViewportRuler
 } from "./chunk-TKZIUL75.js";
-import "./chunk-O6J4TFKX.js";
 import {
   animate,
   state,
@@ -13,6 +12,7 @@ import {
   transition,
   trigger
 } from "./chunk-LYINPB4Y.js";
+import "./chunk-O6J4TFKX.js";
 import {
   Directionality,
   MatCommonModule

@@ -10,11 +10,11 @@ import {
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
 } from "./chunk-2SIYOU7U.js";
+import "./chunk-LYINPB4Y.js";
 import {
   HTTP_ROOT_INTERCEPTOR_FNS,
   HttpClientModule
 } from "./chunk-PYS2WE23.js";
-import "./chunk-LYINPB4Y.js";
 import {
   DOCUMENT,
   NullViewportScroller,
