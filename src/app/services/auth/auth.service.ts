@@ -12,6 +12,15 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  // Check if localStorage is available
+  private isLocalStorageAvailable(): boolean {
+    try {
+      return typeof localStorage !== 'undefined';
+    } catch {
+      return false;
+    }
+  }
+
   register(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/users/register`, userData)
   }
@@ -32,8 +41,11 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/users/reset`, data);
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+  getToken(): string | null {
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem('token');
+    }
+    return null;
   }
 
   isAuthenticated() {
@@ -41,8 +53,12 @@ export class AuthService {
   }
 
   getUserRole(): string {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.role? user.role : 'not registered';
+    if (this.isLocalStorageAvailable()) {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      return user.role;
+    } else {
+      return 'not registered';
+    }
   }
 
   logout() {
