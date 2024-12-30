@@ -71,7 +71,7 @@ export class RegisterComponent {
         confirmPassword: ['', Validators.required],
         gender: ['', Validators.required],
         image: ['', Validators.required],
-        role: ['reader', Validators.required],
+        role: ['admin', Validators.required],
         device_name: [
           deviceService.getDeviceInfo().device
             ? deviceService.getDeviceInfo().device
@@ -122,10 +122,11 @@ export class RegisterComponent {
   onCategChange(event: any, category: any): void {
     const value = event.target.value;
     const isChecked = event.target.checked;
+
     if (isChecked) {
-      this.selectedChips.push(category.id);
+      this.selectedChips.push(category.cat_id);
     } else {
-      const index = this.selectedChips.indexOf(category.id);
+      const index = this.selectedChips.indexOf(category.cat_id);
       if (index !== -1) {
         this.selectedChips.splice(index, 1);
       }
@@ -178,14 +179,18 @@ export class RegisterComponent {
   }
 
   storeCategory() {
-    console.log([...this.secondFormGroup.value]);
+    console.log('form value', this.secondFormGroup.value.categories);
     this.categoriesService
-      .sendSelectedUserCategory([...this.secondFormGroup.value])
+      .sendSelectedUserCategory(this.secondFormGroup.value.categories)
       .subscribe({
         next: (response) => {
           console.log(response);
-
-          this.router.navigateByUrl('/home');
+          this.stepper?.next();
+          if (this.registrationForm.value.role === 'admin') {
+            this.router.navigateByUrl('/admin');
+          } else if (this.registrationForm.value.role === 'reader') {
+            this.router.navigateByUrl('/home');
+          }
         },
         error: (err) => {
           console.log(err);

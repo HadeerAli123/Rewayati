@@ -105,7 +105,11 @@ export class LoginComponent {
         console.log('Login successful:', response);
         localStorage.setItem('token', JSON.stringify(response.token));
         localStorage.setItem('user', JSON.stringify(response.user));
-        this.router.navigateByUrl('/home');
+        if (response.user.role === 'admin') {
+          this.router.navigateByUrl('/admin/dashboard');
+        } else if (response.user.role === 'reader') {
+          this.router.navigateByUrl('/home');
+        }
       },
       error: (err) => {
         console.error('Login error:', err);

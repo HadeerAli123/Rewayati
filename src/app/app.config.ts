@@ -4,9 +4,15 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { routes } from './app.routes';
 import {
   provideHttpClient,
   HTTP_INTERCEPTORS,
@@ -14,8 +20,7 @@ import {
   withFetch,
 } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth/auth.interceptor';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,7 +28,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
-    importProvidersFrom([FormsModule, ReactiveFormsModule, BrowserModule]),
+    importProvidersFrom([
+      FormsModule,
+      ReactiveFormsModule,
+      BrowserModule,
+      BrowserAnimationsModule,
+      NoopAnimationsModule,
+    ]),
     provideHttpClient(),
     provideHttpClient(withFetch()),
     {
@@ -32,5 +43,6 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     DeviceDetectorService,
+    AuthService,
   ],
 };

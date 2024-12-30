@@ -13,7 +13,7 @@ export const routes: Routes = [
 
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    loadChildren: () => import('./auth/auth.module').then((mod) => mod.AuthModule),
   },
 
   {
@@ -25,26 +25,19 @@ export const routes: Routes = [
   },
 
   {
-    path: 'category',
-    canActivate: [AuthGuard],
-    loadComponent: () =>
-      import('../app/components/category/category.component').then(
-        (mod) => mod.CategoryComponent
-      ),
-  },
-
-  {
     path: 'stories',
     canActivate: [AuthGuard],
+    data: { role: 'reader' },
     loadComponent: () =>
-      import('../app/components/stories/all-stories/all-stories.component').then(
-        (mod) => mod.AllStoriesComponent
-      ),
+      import(
+        '../app/components/stories/all-stories/all-stories.component'
+      ).then((mod) => mod.AllStoriesComponent),
   },
 
   {
     path: 'story/details',
     canActivate: [AuthGuard],
+    data: { role: 'reader' },
     loadComponent: () =>
       import('../app/components/story-details/story-details.component').then(
         (mod) => mod.StoryDetailsComponent
@@ -54,7 +47,7 @@ export const routes: Routes = [
   {
     path: 'story/read',
     canActivate: [AuthGuard],
-
+    data: { role: 'reader' },
     loadComponent: () =>
       import('../app/components/story-chapters/story-chapters.component').then(
         (mod) => mod.StoryChaptersComponent
@@ -62,23 +55,12 @@ export const routes: Routes = [
   },
 
   {
-    path: 'dashboard',
-    canActivate: [AuthGuard],
-    loadComponent: () =>
-      import('../app/user/dashboard/dashboard.component').then(
-        (mod) => mod.DashboardComponent
-      ),
-  },
-
-  {
     path: 'admin',
     canActivate: [AuthGuard],
-    data:  {role: 'admin'},
+    data: { role: 'admin' },
     canActivateChild: [],
     loadChildren: () =>
-      import('../app/admin/admin.module').then(
-        (mod) => mod.AdminModule
-      ),
+      import('../app/admin/admin.module').then((mod) => mod.AdminModule),
   },
 
   {

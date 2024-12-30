@@ -8,7 +8,7 @@ import { authRoutes } from './auth.routes';
     CommonModule,
     RouterModule.forChild(authRoutes),
   ],
-  providers:[],
+  providers: [],
   exports: []
 })
 

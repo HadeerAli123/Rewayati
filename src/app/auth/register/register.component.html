@@ -108,7 +108,9 @@
               </mat-error>
               <mat-error
                 class="mb-2"
-                *ngIf="registrationForm.get('password')?.hasError('minLength')"
+                *ngIf="
+                  registrationForm.get('password')?.touched &&
+                  registrationForm.get('password')?.hasError('minlength')"
                 class="pb-1"
               >
                 Password must be at least 8 characters
@@ -311,7 +313,7 @@
             </button>
           </div>
           <div>
-            <button mat-button type="button" matStepperNext class="btn-dark">
+            <button mat-button type="submit" class="btn-dark">
               Store
             </button>
           </div>
@@ -329,7 +331,7 @@
         <mat-error>{{ errorMessage() }}</mat-error>
       </div>
       <div class="text-center">
-        <button mat-button type="button" class="btn" (click)="onSubmit()">
+        <button mat-button type="button" class="btn" routerLink="/">
           Redirect to home
         </button>
         <br />
