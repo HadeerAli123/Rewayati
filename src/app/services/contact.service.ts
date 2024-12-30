@@ -9,7 +9,7 @@ import { Contact } from '../interfaces/contact';
 export class ContactService {
 
   // private apiURL = 'http://127.0.0.1:8000/api/contact-messages';
-  private apiURL = 'https://whitesmoke-coyote-648419.hostingersite.com/api/contact-messages';
+  private apiURL = 'https://whitesmoke-coyote-648419.hostingersite.com/api';
 
   constructor(private http: HttpClient) {}
 
@@ -20,12 +20,12 @@ export class ContactService {
 
   //get contact
   getContacts(): Observable<Contact[]> {
-    return this.http.get<Contact[]>(this.apiURL);
+    return this.http.get<Contact[]>(`${this.apiURL}/contact-messages`);
   }
 
   //delete contact
   deleteMessage(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiURL}/${id}`);
+    return this.http.delete<void>(`${this.apiURL}/contact-messages/${id}`);
   }
 }
 

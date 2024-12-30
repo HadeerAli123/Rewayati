@@ -27,4 +27,18 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isAuthorized = this.authService.isAuthenticated();
   }
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: (res) => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      }, error: (error) => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        console.log('error', error.error.message);
+        this.router.navigateByUrl('/auth/login');
+      }
+    });
+  }
 }

@@ -80,9 +80,7 @@
         >
       </li>
       <li class="nav-item px-3" *ngIf="this.isAuthorized">
-        <a routerLink="auth/register" routerLinkActive="active" class="nav-link"
-          >Welcome</a
-        >
+        <a (click)="logout()" class="nav-link">Welcome</a>
       </li>
     </ul>
   </div>

@@ -1,5 +1,4 @@
 // shared-http.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -9,7 +8,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class SharedHTTPService {
-  private readonly baseUrl = 'https://api.example.com';
+  private readonly baseUrl = 'https://whitesmoke-coyote-648419.hostingersite.com/api';
 
   constructor(private http: HttpClient) {}
 

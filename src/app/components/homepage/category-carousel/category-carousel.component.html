@@ -5,9 +5,11 @@
     </div>
     <div>
       <button type="button" class="btn" (click)="prev()">
+        <p class="sr-only">prev</p>
         <i class="fa-solid fa-arrow-left"></i>
       </button>
       <button type="button" class="btn" (click)="next()">
+        <p class="sr-only">next</p>
         <i class="fa-solid fa-arrow-right"></i>
       </button>
     </div>
@@ -17,17 +19,12 @@
       class="card"
       *ngFor="let category of visibleCategories; let i = index"
       [ngClass]="{ active: i === currentIndex }"
+      (click)="goToCategoryPage(category.cat_id)"
     >
       <div class="card-title">
         <img
           src="images/book-and-pen.png"
-          alt=""
-          style="
-            height: 40px;
-            width: 40px;
-            padding-right: 10px;
-            padding-bottom: 10px;
-          "
+          alt="book-and-pen"
         />
         <span>{{ category?.category_name }}</span>
       </div>

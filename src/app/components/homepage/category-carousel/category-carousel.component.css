@@ -11,6 +11,13 @@
 
 }
 
+.card-title img {
+  height: 40px;
+  width: 40px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
 .btn {
   background-color: #f87f27;
   margin-right: 10px;

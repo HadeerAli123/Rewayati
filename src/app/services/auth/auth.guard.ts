@@ -21,12 +21,17 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: any): boolean {
     const expectedRole = route.data['role'];
     const userRole = this.authService.getUserRole();
 
+    const token = this.authService.getToken();
+    console.log('token', token);
+
+    console.log('userRole', userRole);
     if (userRole !== expectedRole) {
       this.router.navigate(['/auth/login']);
       return false;
