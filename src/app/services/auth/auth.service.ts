@@ -15,7 +15,6 @@ export class AuthService {
   // Check if localStorage is available
   private isLocalStorageAvailable(): boolean {
     try {
-      console.log(localStorage);
       return typeof localStorage !== 'undefined';
     } catch {
       return false;
@@ -44,7 +43,7 @@ export class AuthService {
 
   getToken(): string | null {
     if (this.isLocalStorageAvailable()) {
-      return localStorage.getItem('token');
+      return JSON.parse(String(localStorage.getItem('token')));
     }
     return null;
   }

@@ -102,6 +102,56 @@ export const adminRoutes: Routes = [
       },
 
       {
+        path: 'tags',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./tags/tags/tags.component').then(
+            (mod) => mod.TagsComponent
+          ),
+      },
+
+      {
+        path: 'comments',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./comments/comments/comments.component').then(
+            (mod) => mod.CommentsComponent
+          ),
+      },
+
+      {
+        path: 'reviews',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./reviews/reviews/reviews.component').then(
+            (mod) => mod.ReviewsComponent
+          ),
+      },
+
+      {
+        path: 'start-reading',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./start-reading/start-reading/start-reading.component').then(
+            (mod) => mod.StartReadingComponent
+          ),
+      },
+
+      {
+        path: 'reading-later',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./reading-later/reading-later/reading-later.component').then(
+            (mod) => mod.ReadingLaterComponent
+          ),
+      },
+
+      {
         path: 'contacts',
         canActivate: [AuthGuard],
         data: { role: 'admin' },
