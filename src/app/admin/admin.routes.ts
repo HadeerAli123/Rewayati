@@ -22,6 +22,36 @@ export const adminRoutes: Routes = [
       },
 
       {
+        path: 'categories',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import(
+            '../../app/admin/category/show-all-categories/show-all-categories.component'
+          ).then((mod) => mod.ShowAllCategoriesComponent),
+      },
+
+      {
+        path: 'category/create',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import(
+            '../../app/admin/category/create-category/create-category.component'
+          ).then((mod) => mod.CreateCategoryComponent),
+      },
+
+      {
+        path: 'category/update/:id',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import(
+            '../../app/admin/category/create-category/create-category.component'
+          ).then((mod) => mod.CreateCategoryComponent),
+      },
+
+      {
         path: 'chapter/create',
         canActivate: [AuthGuard],
         data: { role: 'admin' },
@@ -69,36 +99,6 @@ export const adminRoutes: Routes = [
           import('./story/create-story/create-story.component').then(
             (mod) => mod.CreateStoryComponent
           ),
-      },
-
-      {
-        path: 'categories',
-        canActivate: [AuthGuard],
-        data: { role: 'admin' },
-        loadComponent: () =>
-          import(
-            '../../app/admin/category/show-all-categories/show-all-categories.component'
-          ).then((mod) => mod.ShowAllCategoriesComponent),
-      },
-
-      {
-        path: 'category/create',
-        canActivate: [AuthGuard],
-        data: { role: 'admin' },
-        loadComponent: () =>
-          import(
-            '../../app/admin/category/create-category/create-category.component'
-          ).then((mod) => mod.CreateCategoryComponent),
-      },
-
-      {
-        path: 'category/update/:id',
-        canActivate: [AuthGuard],
-        data: { role: 'admin' },
-        loadComponent: () =>
-          import(
-            '../../app/admin/category/create-category/create-category.component'
-          ).then((mod) => mod.CreateCategoryComponent),
       },
 
       {

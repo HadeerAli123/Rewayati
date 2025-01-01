@@ -8,7 +8,6 @@ import { Contact } from '../interfaces/contact';
 })
 export class ContactService {
 
-  // private apiURL = 'http://127.0.0.1:8000/api/contact-messages';
   private apiURL = 'https://whitesmoke-coyote-648419.hostingersite.com/api';
 
   constructor(private http: HttpClient) {}
@@ -28,4 +27,3 @@ export class ContactService {
     return this.http.delete<void>(`${this.apiURL}/contact-messages/${id}`);
   }
 }
-

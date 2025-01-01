@@ -106,7 +106,7 @@ export class LoginComponent {
         localStorage.setItem('token', JSON.stringify(response.token));
         localStorage.setItem('user', JSON.stringify(response.user));
         if (response.user.role === 'admin') {
-          this.router.navigateByUrl('/admin/dashboard');
+          this.router.navigateByUrl('/admin/categories');
         } else if (response.user.role === 'reader') {
           this.router.navigateByUrl('/home');
         }

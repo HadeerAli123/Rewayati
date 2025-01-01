@@ -15,6 +15,7 @@ export class AuthService {
   // Check if localStorage is available
   private isLocalStorageAvailable(): boolean {
     try {
+      console.log(localStorage);
       return typeof localStorage !== 'undefined';
     } catch {
       return false;
@@ -22,7 +23,7 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users/register`, userData)
+    return this.http.post(`${this.apiUrl}/users/register`, userData);
   }
 
   login(credentials: any): Observable<any> {

@@ -1,18 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../interfaces/contact';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [ RouterModule, CommonModule, MatPaginatorModule, MatTableModule ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css',
 })
-export class ContactComponent {
+export class ContactComponent implements OnInit {
   contacts: Contact[] = [];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'Actions'];
+  dataSource = new MatTableDataSource<Contact>(this.contacts);
+
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
 
   constructor(private contactService: ContactService) {}
 

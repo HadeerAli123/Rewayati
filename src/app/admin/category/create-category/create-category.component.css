@@ -34,6 +34,7 @@
   line-height: 26px;
   font-weight: 400;
 }
+
 .category-form .input-text:focus {
   outline: none;
 }
@@ -50,11 +51,10 @@
 
 .btn {
   background-color: #f87f27;
-  color: #262628;
+  color: #ffffff;
   font-size: 16px;
   line-height: 26px;
   font-weight: 500;
-  color: #262628;
   margin: 10px 0px;
 }
 
@@ -62,6 +62,7 @@
   background-color: #262628;
   color: #f87f27;
 }
+
 mat-form-field {
   width: 100%;
 }

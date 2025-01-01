@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { response } from 'express';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +20,7 @@ export class CategoryService {
   }
 
   //add category
-  addCategory(category: { category_name: string }) {
+  addCategory(category: { category_name: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/categories/`, category);
   }
 

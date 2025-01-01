@@ -11,7 +11,7 @@
           <mat-label>Category Name</mat-label>
           <input matInput formControlName="category_name" placeholder="Category name"/>
         </mat-form-field>
-        <mat-error *ngIf="categoryForm.get('category_name')?.invalid">
+        <mat-error *ngIf="categoryForm.get('category_name')?.touched && categoryForm.get('category_name')?.invalid">
           Category name is required and must be at least 3 characters.
         </mat-error>
       </div>

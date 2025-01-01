@@ -19,7 +19,7 @@ import {
   withInterceptors,
   withFetch,
 } from '@angular/common/http';
-import { AuthInterceptor } from './services/auth/auth.interceptor';
+import { authInterceptor } from './services/auth/auth.interceptor';
 import { AuthService } from './services/auth/auth.service';
 
 export const appConfig: ApplicationConfig = {
@@ -35,13 +35,13 @@ export const appConfig: ApplicationConfig = {
       BrowserAnimationsModule,
       NoopAnimationsModule,
     ]),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideHttpClient(withFetch()),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true,
+    // },
     DeviceDetectorService,
     AuthService,
   ],

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import {
   FormControl,
@@ -29,20 +29,26 @@ import { CommonModule } from '@angular/common';
 export class CreateCategoryComponent {
   categoryForm: FormGroup; //form data and validation
 
-  // constructor(private categoryService: CategoryService) {
-  //   this.categoryForm = new FormGroup({
-  //     category_name: new FormControl('', [
-  //       Validators.required,
-  //       Validators.minLength(3),
-  //     ]),
-  //   });
-  // }
-
-  constructor(private categoryService: CategoryService) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private categoryService: CategoryService
+  ) {
     this.categoryForm = new FormGroup({
-      cat_id: new FormControl('', [Validators.required]),
-      category_name: new FormControl('', [Validators.required]),
+      cat_id: new FormControl(
+        this.activatedRoute.snapshot.params['id']
+          ? this.activatedRoute.snapshot.params['id']
+          : null,
+        []
+      ),
+      category_name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
     });
+  }
+
+  ngOnInit(): void {
+    console.log(this.activatedRoute.snapshot.params['id']);
   }
 
   updateCategory(cat_id: number) {
