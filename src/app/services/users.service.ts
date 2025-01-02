@@ -14,6 +14,10 @@ export class UsersService {
     // .pipe(map((resp: any) =>  resp.data ));
   }
 
+  getCurrentUser(): Observable<any> {
+    return this.sharedHttpService.get(`users/currentuser`);
+  }
+
   deleteUser(id: any): Observable<any> {
     return this.sharedHttpService.delete(`users/${id}`);
   }
