@@ -112,16 +112,6 @@ export const adminRoutes: Routes = [
       },
 
       {
-        path: 'comments',
-        canActivate: [AuthGuard],
-        data: { role: 'admin' },
-        loadComponent: () =>
-          import('./comments/comments/comments.component').then(
-            (mod) => mod.CommentsComponent
-          ),
-      },
-
-      {
         path: 'reviews',
         canActivate: [AuthGuard],
         data: { role: 'admin' },

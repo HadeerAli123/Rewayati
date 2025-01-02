@@ -25,13 +25,22 @@ export const routes: Routes = [
   },
 
   {
-    path: 'stories',
+    path: 'profile',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('../app/user/profile/profile.component').then(
+        (mod) => mod.ProfileComponent
+      ),
+  },
+
+  {
+    path: 'stories/:category_id',
     canActivate: [AuthGuard],
     data: { role: 'reader' },
     loadComponent: () =>
       import(
-        '../app/components/stories/all-stories/all-stories.component'
-      ).then((mod) => mod.AllStoriesComponent),
+        '../app/components/stories/stories/stories.component'
+      ).then((mod) => mod.StoriesComponent),
   },
 
   {
