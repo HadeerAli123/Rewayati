@@ -1,8 +1,13 @@
 .category {
   max-width: 900px;
-  margin: 50px auto;
+  margin: 0px auto 50px;
   position: relative;
   padding: 30px;
+}
+
+.title-part {
+  display: flex;
+  justify-content: space-between;
 }
 
 .title {
@@ -11,7 +16,7 @@
   letter-spacing: 3px;
   font-size: 1.5em;
   line-height: 48px;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   color: #f87f27;
   background: linear-gradient(to right, #f87f27, #262628);
   background-clip: text;
@@ -24,4 +29,18 @@ th {
 
 td {
   align-content: center;
+}
+
+.btn {
+  background-color: #f87f27;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.btn:hover {
+  background-color: #262628;
+  color: #f87f27;
 }

@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 // import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
@@ -54,7 +55,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private deviceService: DeviceDetectorService
   ) {
     this.loginForm = this.fb.group({
       email: [
@@ -68,12 +70,13 @@ export class LoginComponent {
         ],
       ],
       password: ['', [Validators.required]],
+      device_name: [
+        deviceService.getDeviceInfo().device
+          ? deviceService.getDeviceInfo().device
+          : deviceService.getDeviceInfo().deviceType,
+        Validators.required,
+      ],
     });
-
-    //email
-    // merge(this.email.statusChanges, this.email.valueChanges)
-    //   .pipe(takeUntilDestroyed())
-    //   .subscribe(() => this.updateErrorMessage());
   }
 
   //email validation

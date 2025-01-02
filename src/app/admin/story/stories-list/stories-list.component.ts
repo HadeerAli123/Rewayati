@@ -15,7 +15,7 @@ import { Story } from '../../../interfaces/story';
 })
 export class StoriesListComponent implements OnInit, AfterViewInit {
   stories: Story[] = [];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'Actions'];
+  displayedColumns: string[] = ['title', 'category', 'publication_status', 'symbol', 'Actions'];
   dataSource = new MatTableDataSource<Story>(this.stories);
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
@@ -28,7 +28,8 @@ export class StoriesListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.storyService.getAllStories().subscribe({
       next: (response: any) => {
-        this.stories = response.data;
+        console.log('stories', response);
+        this.stories = response;
       },
       error: (error: any) => {
         console.error('Error retrieving contacts:', error);
@@ -40,12 +41,12 @@ export class StoriesListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator? this.paginator: null;
   }
 
-  edit(id: number) {
+  edit(id: number = 0) {
     console.log('Editing category with ID:', id);
     this.router.navigate([`category/update/${id}`]);
   }
 
-  delete(id: number) {
+  deleteStory(id: number = 0) {
     if (confirm('Are you sure you want to delete this story?')) {
       this.storyService.deleteStory(id).subscribe({
         next: () => {

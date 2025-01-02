@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
-import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-header',
@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthorized = this.authService.isAuthenticated();
+    
   }
 
   logout() {

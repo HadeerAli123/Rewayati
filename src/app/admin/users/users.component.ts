@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { User } from '../../interfaces/user';
 import { UsersService } from '../../services/users.service';
 
@@ -16,11 +16,11 @@ import { UsersService } from '../../services/users.service';
 export class UsersComponent implements OnInit, AfterViewInit {
   users: User[] = [];
   displayedColumns: string[] = [
-    'Username',
-    'Email',
-    'Role',
-    'Gender',
-    // 'Actions',
+    'username',
+    'email',
+    'role',
+    'gender',
+    'actions',
   ];
   dataSource = new MatTableDataSource<User>(this.users);
 
@@ -33,8 +33,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
       next: (response) => {
         console.log('response', response);
         this.users = response;
+        this.dataSource = new MatTableDataSource<User>(this.users);
       }, error: (error) => {
-
+        console.log('error', error);
       }
     });
   }
@@ -43,12 +44,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator ? this.paginator : null;
   }
 
-  edit(id: number) {
+  addUser() {
+  }
+
+  edit(id: number = 0) {
     console.log('Editing User with ID:', id);
     this.router.navigate([`user/update/${id}`]);
   }
 
-  delete(id: number) {
+  deleteUser(id: number = 0) {
     if (confirm('Are you sure you want to delete this User?')) {
       this.usersService.deleteUser(id).subscribe({
         next: () => {
@@ -66,6 +70,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 }
 
 export interface PeriodicElement {
+  id: number;
   username: string;
   email: string;
   role: string;
