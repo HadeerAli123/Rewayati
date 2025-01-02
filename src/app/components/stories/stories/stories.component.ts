@@ -7,13 +7,13 @@ import { StoryService } from '../../../services/story.service';
 import { Story } from '../../../interfaces/story';
 
 @Component({
-  selector: 'app-all-stories',
+  selector: 'app-stories',
   standalone: true,
   imports: [ RouterModule, MatButtonModule, MatCardModule, CommonModule ],
-  templateUrl: './all-stories.component.html',
-  styleUrl: './all-stories.component.css',
+  templateUrl: './stories.component.html',
+  styleUrl: './stories.component.css',
 })
-export class AllStoriesComponent {
+export class StoriesComponent {
   stories: Story[] = [];
 
   constructor(private storyService: StoryService) {
