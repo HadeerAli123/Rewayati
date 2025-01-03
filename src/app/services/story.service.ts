@@ -32,9 +32,31 @@ export class StoryService {
     return this.sharedHttpService.get(`tags/${tagId}/stories`);
   }
 
-  // get top stories
+  // get Top Viewed Stories With Tags
   getTopStoriesByViews(categoryId: number | string): Observable<any> {
     return this.sharedHttpService.get(`categories/${categoryId}/top-stories`);
+  }
+
+  // stories In Read Later
+  getStoriesInReadLater(): Observable<any> {
+    return this.sharedHttpService.get(`stories/readlater/all`);
+  }
+
+  // get Completed Stories By Category
+  getCompletedStoriesByCategory(categoryId: number | string): Observable<any> {
+    return this.sharedHttpService.get(
+      `categories/${categoryId}/completed-stories`
+    );
+  }
+
+  // get Stories With Paid Chapters
+  getStoriesWithPaidChapters(category_id: number | string): Observable<any> {
+    return this.sharedHttpService.get(`stories/${category_id}/paid-chapters`);
+  }
+
+  // get Advertisement Story By Latest Story
+  getAdvertisementStoryByLatestStory(): Observable<any> {
+    return this.sharedHttpService.get(`latest-stories`);
   }
 
   // get published stories
@@ -49,7 +71,7 @@ export class StoryService {
 
   // get deleted stories
   deletedStories() {
-    return this.http.get(`stories/deleted`);
+    return this.sharedHttpService.get(`stories/deleted`);
   }
 
   // story details in reader side
@@ -68,7 +90,10 @@ export class StoryService {
   }
 
   // update story
-  updateStory(id: number, category: { category_name: string }): Observable<any> {
+  updateStory(
+    id: number,
+    category: { category_name: string }
+  ): Observable<any> {
     return this.http.put(`${this.apiURL}/stories/${id}`, category);
   }
 
