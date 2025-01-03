@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class HeaderComponent implements OnInit {
   categories: any[] = [];
   isAuthorized: boolean = false;
+  userRole: string = '';
 
   constructor(
     public router: Router,
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthorized = this.authService.isAuthenticated();
-    
+    this.userRole = this.authService.getUserRole();
+    console.log('this.userRole', this.userRole);
   }
 
   logout() {
