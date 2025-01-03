@@ -116,4 +116,19 @@ export class StoryService {
   StartReading(storyId: number | string): Observable<any> {
     return this.sharedHttpService.post(`stories/${storyId}/start-reading`, {});
   }
+
+  // reading later story
+  readLaterStore(story_id: number | string): Observable<any> {
+    return this.sharedHttpService.post(`readlater`, { story_id: story_id });
+  }
+
+  // in Read later
+  setInReadlater(story_id: number | string): Observable<any> {
+    return this.sharedHttpService.post(`read_later/myreadlater_list`, { story_id: story_id });
+  }
+
+  // remove Read Later list
+  removeReadLaterlist(story_id: number | string): Observable<any> {
+    return this.sharedHttpService.post(`readlater_lists/remove/${ story_id }`, {});
+  }
 }

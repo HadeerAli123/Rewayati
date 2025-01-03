@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, pipe } from 'rxjs';
 import { SharedHTTPService } from './shared-http.service';
 
 @Injectable({
@@ -11,7 +11,6 @@ export class UsersService {
 
   getUsers(): Observable<any> {
     return this.sharedHttpService.get(`users`);
-    // .pipe(map((resp: any) =>  resp.data ));
   }
 
   getCurrentUser(): Observable<any> {

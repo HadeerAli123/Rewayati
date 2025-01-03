@@ -33,7 +33,9 @@ export class AuthGuard implements CanActivate {
 
     console.log('userRole', userRole);
     console.log('expectedRole', expectedRole);
-    if (userRole !== expectedRole) {
+    if (expectedRole === undefined && userRole) {
+      return true;
+    } else if (!expectedRole && userRole !== expectedRole) {
       this.router.navigate(['/auth/login']);
       return false;
     }
