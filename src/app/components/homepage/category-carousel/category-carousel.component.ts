@@ -48,6 +48,6 @@ export class CategoryCarouselComponent {
 
   goToCategoryPage(cat_id: string) {
     console.log(cat_id);
-    this.route.navigateByUrl(`stories/${cat_id}`);
+    this.route.navigateByUrl(`stories-by-category/${cat_id}`);
   }
 }
