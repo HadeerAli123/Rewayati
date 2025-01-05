@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { StoryService } from '../../../services/story.service';
@@ -21,15 +21,32 @@ import { CategoryCarouselComponent } from '../../homepage/category-carousel/cate
   styleUrl: './stories.component.css',
 })
 export class StoriesComponent implements OnInit {
-  stories: Story [] = [];
+  stories: Story[] = [];
   tagId: string | number = 0;
   categoryId: string | number = 0;
 
-  constructor(private storyService: StoryService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private storyService: StoryService
+  ) {}
 
   ngOnInit(): void {
-    this.storyService.getAllStories().subscribe({
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.categoryId = params['category_id'];
+    });
+
+    // this.storyService.getAllStories().subscribe({
+    //   next: (stories: Story[]) => {
+    //     this.stories = stories;
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //   },
+    // });
+
+    this.storyService.getStoriesByCategory(this.categoryId).subscribe({
       next: (stories: Story[]) => {
+        console.log('by category', stories);
         this.stories = stories;
       },
       error: (error) => {
@@ -37,34 +54,34 @@ export class StoriesComponent implements OnInit {
       },
     });
 
-    this.storyService.getAdvertisementStoryByLatestStory().subscribe({
-      next: (stories: Story[]) => {
-        console.log('latest', stories);
-        this.stories = stories;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    // this.storyService.getAdvertisementStoryByLatestStory().subscribe({
+    //   next: (stories: Story[]) => {
+    //     console.log('latest', stories);
+    //     this.stories = stories;
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //   },
+    // });
 
-    this.storyService.getStoriesByTag(this.tagId).subscribe({
-      next: (stories: Story[]) => {
-        console.log('top stories by views', stories);
-        this.stories = stories;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    // this.storyService.getStoriesByTag(this.tagId).subscribe({
+    //   next: (stories: Story[]) => {
+    //     console.log('top stories by views', stories);
+    //     this.stories = stories;
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //   },
+    // });
 
-    this.storyService.getTopStoriesByViews().subscribe({
-      next: (stories: Story[]) => {
-        console.log('top stories by views', stories);
-        this.stories = stories;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    // this.storyService.getTopStoriesByViews().subscribe({
+    //   next: (stories: Story[]) => {
+    //     console.log('top stories by views', stories);
+    //     this.stories = stories;
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //   },
+    // });
   }
 }

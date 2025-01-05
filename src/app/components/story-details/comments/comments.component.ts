@@ -10,30 +10,32 @@ import { error } from 'console';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './comments.component.html',
-  styleUrl: './comments.component.css'
+  styleUrl: './comments.component.css',
 })
 export class CommentsComponent implements OnInit {
-
-  reviews: Review [] =  [];
+  reviews: Review[] = [];
   storyId: string | number = '';
 
-  constructor(private reviewsServices:  ReviewsService, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private reviewsServices: ReviewsService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
-        this.storyId = params['storyId'];
+      this.storyId = params['storyId'];
     });
 
     this.reviewsServices.getAllReviews(this.storyId).subscribe({
       next: (reviews: any) => {
         this.reviews = reviews.data;
         console.log('reviews', this.reviews);
-      }, error: (error) => {
+      },
+      error: (error) => {
         console.log(error);
-      }
+      },
     });
   }
 
-  postReview() {
-  }
+  postReview() {}
 }

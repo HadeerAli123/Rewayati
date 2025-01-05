@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Tag } from '../../../interfaces/tag';
@@ -9,27 +9,37 @@ import { CategoryService } from '../../../services/category.service';
 @Component({
   selector: 'app-tags',
   standalone: true,
-  imports: [CommonModule, MatPaginatorModule, MatTableModule],
+  imports: [ CommonModule, MatPaginatorModule, MatTableModule ],
   templateUrl: './tags.component.html',
   styleUrl: './tags.component.css'
 })
 export class TagsComponent implements OnInit, AfterViewInit {
   tags: Tag[] = [];
+  categoryId: string | number = '';
   displayedColumns: string[] = [
       'name',
+      'tags',
       'actions',
     ];
     dataSource = new MatTableDataSource<Tag>(this.tags);
 
     @ViewChild(MatPaginator) paginator?: MatPaginator;
 
-    constructor(private router: Router, private categoryService: CategoryService) {}
+    constructor(
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
+      private categoryService: CategoryService
+    ) {}
 
     ngOnInit(): void {
-      this.categoryService.getTagsByCategory(5).subscribe({
+      this.activatedRoute.params.subscribe((params: Params) => {
+        this.categoryId = params['categoryId'];
+      });
+
+      this.categoryService.getTagsByCategory(this.categoryId).subscribe({
         next: (response) => {
           console.log('response', response);
-          this.tags = response;
+          this.tags = response.tags;
           this.dataSource = new MatTableDataSource<Tag>(this.tags);
         }, error: (error) => {
           console.log('error', error);
@@ -41,12 +51,13 @@ export class TagsComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator ? this.paginator : null;
     }
 
-    addUser() {
+    addTag() {
+      this.router.navigate([`tags/create`]);
     }
 
     edit(id: number | string = 0) {
       console.log('Editing tag with ID:', id);
-      this.router.navigate([`tag/update/${id}`]);
+      this.router.navigate([`tags/update/${id}`]);
     }
 
     deleteTag(id: number | string = 0) {

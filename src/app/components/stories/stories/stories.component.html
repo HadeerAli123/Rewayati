@@ -6,7 +6,7 @@
     <div class="col-md-3 my-2" *ngFor="let story of stories">
       <mat-card
         appearance="outlined"
-        routerLink="/story/details"
+        routerLink="/story/{{ story.id }}/details"
       >
         <img
           mat-card-image
@@ -14,8 +14,8 @@
           src="{{ story.cover_image }}"
           alt="cover_image"
         />
-        <mat-card-content class="pt-2" routerLink="/story/details">
-          <a routerLink="/story/details">
+        <mat-card-content class="pt-2" routerLink="/story/{{ story.id }}/details">
+          <a>
             <p mat-card-title class="py-2 title">{{ story.title }}.</p>
           </a>
 
@@ -27,7 +27,7 @@
                   style="height: 20px; width: 20px"
                   alt=""
                 />
-                <span style="padding-left: 3px; font-size: 12px">202</span>
+                <span style="padding-left: 3px; font-size: 12px">{{ story.readers_count }}</span>
               </span>
             </div>
             <div class="ps-2">
@@ -38,7 +38,7 @@
                   alt=""
                 />
                 <span style="padding-left: 3px; font-size: 12px">
-                  200</span
+                  {{ story.votes_count }}</span
                 ></span
               >
             </div>
@@ -49,7 +49,7 @@
                   style="height: 20px; width: 20px"
                   alt=""
                 />
-                <span style="font-size: 12px"> 150</span></span
+                <span style="font-size: 12px">{{ story.comments_count }}</span></span
               >
             </div>
             <div class="ps-2">
@@ -59,16 +59,16 @@
                   style="height: 13px; width: 20px"
                   alt=""
                 />
-                <span style="font-size: 12px">150</span></span
+                <span style="font-size: 12px">{{ story.chapters_count }}</span></span
               >
             </div>
           </div>
         </mat-card-content>
-        <!-- <mat-card-actions>
+        <mat-card-actions>
           <div>
-            <button mat-button>Read Now</button>
+            <button mat-button >Read Now</button>
           </div>
-        </mat-card-actions> -->
+        </mat-card-actions>
       </mat-card>
     </div>
   </div>

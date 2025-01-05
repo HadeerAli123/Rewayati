@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import {
   FormControl,
@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Category } from '../../../interfaces/category';
 
 @Component({
   selector: 'app-create-category',
@@ -26,13 +27,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './create-category.component.html',
   styleUrl: './create-category.component.css',
 })
-export class CreateCategoryComponent {
-  categoryForm: FormGroup; //form data and validation
+export class CreateCategoryComponent implements OnInit {
+  categoryForm: FormGroup = new FormGroup({}); //form data and validation
+  category: Category = {};
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private categoryService: CategoryService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.categoryForm = new FormGroup({
       cat_id: new FormControl(
         this.activatedRoute.snapshot.params['id']
@@ -45,48 +50,56 @@ export class CreateCategoryComponent {
         Validators.minLength(3),
       ]),
     });
+
+    if (this.activatedRoute.snapshot.params['id']) {
+      this.categoryService
+        .showCategory(this.activatedRoute.snapshot.params['id'])
+        .subscribe({
+          next: (category: any) => {
+            this.category = category.data;
+            this.categoryForm.patchValue({
+              category_name: this.category.category_name,
+            });
+          },
+          error: (error) => {
+            console.log('error', error);
+          },
+        });
+    }
   }
-
-  ngOnInit(): void {
-    console.log(this.activatedRoute.snapshot.params['id']);
-  }
-
-  updateCategory(cat_id: number) {
-    const categoryData = this.categoryForm.value;
-
-    this.categoryService.updateCategory(cat_id, categoryData).subscribe({
-      next: () => {
-        alert('Updated successfully');
-        this.categoryForm.reset();
-      },
-      error: () => {
-        alert('Failed to update category. Please try again.');
-      },
-    });
-  }
-
-  // onSubmit() {
-  //   if (this.categoryForm.valid) {
-  //     const cat_id = this.categoryForm.get('cat_id')?.value;
-  //     console.log(cat_id);
-  //     this.updateCategory(cat_id);
-  //     console.log(this.updateCategory(cat_id));
-  //   } else {
-  //     alert('Please fill in the form correctly!');
-  //   }
-  // }
 
   onSubmit() {
     if (this.categoryForm.valid) {
-      this.categoryService.addCategory(this.categoryForm.value).subscribe({
-        next: (response) => {
-          alert('added successfully');
-          this.categoryForm.reset();
-        },
-        error: (error) => {
-          alert('Failed to add category. Please try again.');
-        },
-      });
+      if (this.activatedRoute.snapshot.params['id']) {
+        this.categoryService
+          .updateCategory(
+            this.categoryForm.value.cat_id,
+            this.categoryForm.value.category_name
+          )
+          .subscribe({
+            next: (response) => {
+              alert('Updated successfully');
+              this.categoryForm.reset();
+              this.router.navigateByUrl(`admin/categories`);
+            },
+            error: (error) => {
+              alert('Failed to add category. Please try again.');
+            },
+          });
+      } else {
+        this.categoryService
+          .addCategory(this.categoryForm.value.category_name)
+          .subscribe({
+            next: (response) => {
+              alert('added successfully');
+              this.categoryForm.reset();
+              this.router.navigateByUrl(`admin/categories`);
+            },
+            error: (error) => {
+              alert('Failed to add category. Please try again.');
+            },
+          });
+      }
     } else {
       alert('Please enter a valid category name.');
     }

@@ -29,13 +29,17 @@ export class CategoryService {
   }
 
   // add category
-  addCategory(category: { category_name: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/categories/`, category);
+  addCategory(category: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/categories/`, {
+      category_name: category,
+    });
   }
 
   // update category
-  updateCategory(id: number, category: { category_name: string }) {
-    return this.http.put(`${this.apiUrl}/categories/${id}`, category);
+  updateCategory(id: number, category: string) {
+    return this.http.put(`${this.apiUrl}/categories/${id}`, {
+      category_name: category,
+    });
   }
 
   // delete category
@@ -59,7 +63,7 @@ export class CategoryService {
   }
 
   // add tag
-  tagStore(story: string): Observable<any> {
+  addTagStore(story: string): Observable<any> {
     return this.sharedHttp.post(`Tags`, { name: story });
   }
 

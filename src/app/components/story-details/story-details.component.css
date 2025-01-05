@@ -9,7 +9,7 @@ img.story-img {
 
 .now {
   background-color: #f87f27;
-  color: #282827;
+  color: #fff;
   font-size: 18px;
   font-weight: 500;
 }
@@ -52,6 +52,16 @@ a {
 
 .tag {
   text-wrap: wrap;
+}
+
+.icon-img {
+  height: 20px;
+  width: 20px
+}
+
+.icon-img {
+  padding-left: 5px;
+  font-size: 14px;
 }
 
 .specifications {

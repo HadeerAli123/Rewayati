@@ -112,7 +112,7 @@ export const adminRoutes: Routes = [
       },
 
       {
-        path: 'tags',
+        path: 'tags/:categoryId',
         canActivate: [AuthGuard],
         data: { role: 'admin' },
         loadComponent: () =>

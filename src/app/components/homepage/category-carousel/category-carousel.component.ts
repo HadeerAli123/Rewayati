@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CategoryCarouselComponent {
   currentIndex = 0;
+  tags_Show: boolean = false;
   categories: any[] = [];
 
   constructor(private categoryService: CategoryService, private route: Router) {
@@ -48,6 +49,7 @@ export class CategoryCarouselComponent {
 
   goToCategoryPage(cat_id: string) {
     console.log(cat_id);
+    this.tags_Show = true;
     this.route.navigateByUrl(`stories-by-category/${cat_id}`);
   }
 }

@@ -16,7 +16,7 @@ import { Category } from '../../../interfaces/category';
 })
 export class ShowAllCategoriesComponent implements OnInit {
   categories: any[] = [];
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'Actions'];
+  displayedColumns: string[] = [ 'name', 'Actions'];
   dataSource = new MatTableDataSource<Category>(this.categories);
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;

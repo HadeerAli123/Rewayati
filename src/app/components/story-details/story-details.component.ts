@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommentsComponent } from './comments/comments.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ActivatedRoute, Params, RouterModule } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { Story } from '../../interfaces/story';
@@ -28,6 +28,7 @@ export class StoryDetailsComponent implements OnInit {
 
   constructor(
     private ActivatedRouter: ActivatedRoute,
+    private router: Router,
     private storyService: StoryService
   ) {}
 
@@ -59,7 +60,7 @@ export class StoryDetailsComponent implements OnInit {
   }
 
   readStory(id: number | string) {
-
+    this.router.navigateByUrl(`story/${id}/read`);
   }
 
   //review

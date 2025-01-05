@@ -33,10 +33,10 @@
             <span>
               <img
                 src="images/reading-book.png"
-                style="height: 20px; width: 20px"
-                alt=""
+                class="icon-img"
+                alt="reading-book"
               />
-              <span style="padding-left: 5px; font-size: 14px">{{
+              <span class="icon-text">{{
                 storyDetails.readers_count
               }}</span>
             </span>
@@ -45,10 +45,10 @@
             <span>
               <img
                 src="images/feedback.png"
-                style="height: 20px; width: 20px"
-                alt=""
+                class="icon-img"
+                alt="feedback"
               />
-              <span style="padding-left: 3px; font-size: 14px">{{
+              <span class="icon-text">{{
                 storyDetails.votes_count
               }}</span></span
             >
@@ -57,20 +57,21 @@
             <span>
               <img
                 src="images/feedback-2.png"
-                style="height: 20px; width: 20px"
-                alt=""
+                class="icon-img"
+                alt="feedback-2"
               />
-              <span style="font-size: 14px">{{ storyDetails.comments_count }}</span></span
+              <span class="icon-text">{{ storyDetails.comments_count }}</span></span
             >
           </div>
           <div class="ps-2">
             <span>
               <img
                 src="images/chapter.png"
-                style="padding-left: 5px; height: 13px; width: 20px"
-                alt=""
+                class="icon-img"
+                style="padding-left: 5px;"
+                alt="chapter_count"
               />
-              <span style="font-size: 12px">{{ storyDetails.chapters_count }}</span></span
+              <span class="icon-text">{{ storyDetails.chapters_count }}</span></span
             >
           </div>
         </div>
@@ -155,7 +156,7 @@
           <mat-tab label="Content">
             <ul class="my-4">
               <li *ngFor="let character of storyDetails.main_characters">
-                <a routerLink=""
+                <a (click)="readStory(storyDetails.id)"
                   ><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">
                     Chapter {{ character.name }}
                   </p></a
@@ -193,32 +194,6 @@
               alt="cover"
               style="height: 220px; width: 160px"
             />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-          </div>
-          <div class="carousel-item">
             <img
               src="images/cover1.jpg"
               class="img-fluid px-2"
