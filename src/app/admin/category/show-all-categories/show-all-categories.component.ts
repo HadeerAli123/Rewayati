@@ -41,6 +41,10 @@ export class ShowAllCategoriesComponent implements OnInit {
     this.dataSource.paginator = this.paginator? this.paginator: null;
   }
 
+  viewTags(cat_id: number | string) {
+    this.router.navigateByUrl(`admin/tags/${cat_id}`);
+  }
+
   addCategory() {
     this.router.navigateByUrl(`admin/category/create`);
   }
