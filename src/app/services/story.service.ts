@@ -33,8 +33,8 @@ export class StoryService {
   }
 
   // get Top Viewed Stories With Tags
-  getTopStoriesByViews(categoryId: number | string): Observable<any> {
-    return this.sharedHttpService.get(`categories/${categoryId}/top-stories`);
+  getTopStoriesByViews(): Observable<any> {
+    return this.sharedHttpService.get(`stories/top-viewed`);
   }
 
   // stories In Read Later
@@ -118,7 +118,7 @@ export class StoryService {
   }
 
   // reading later story
-  readLaterStore(story_id: number | string): Observable<any> {
+  readLaterStore(story_id: number): Observable<any> {
     return this.sharedHttpService.post(`readlater`, { story_id: story_id });
   }
 

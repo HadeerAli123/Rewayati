@@ -1,82 +1,84 @@
-
-
-.btn{
-    width:80%;
-    margin-top: 10px;
-    
+img.story-img {
+  width: 80%;
 }
 
-.now{
-    background-color:  #f87f27;
-    color: #282827;
-    font-size: 18px;
-    font-weight:500;
+.btn {
+  width: 80%;
+  margin-top: 10px;
 }
 
-.now:hover{
-    background-color: #282827;
-    color: white;
+.now {
+  background-color: #f87f27;
+  color: #282827;
+  font-size: 18px;
+  font-weight: 500;
 }
 
-.later{
-    background-color: #ded9c4;
-    color: #282827;
-    font-size: 18px;
-    font-weight:500;
+.now:hover {
+  background-color: #282827;
+  color: white;
 }
 
-.later:hover{
-    background-color: #fff;
-    color: #b15443;
-    border-color: #b15443;
+.later {
+  background-color: #ded9c4;
+  color: #282827;
+  font-size: 18px;
+  font-weight: 500;
 }
 
-ul{
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+.later:hover {
+  background-color: #fff;
+  color: #b15443;
+  border-color: #b15443;
 }
 
-li{
-    display: inline;
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
 }
 
-a{
-    text-decoration: none;
-    background-color: #fff;
-    color: black;
-    box-shadow: (0,0,0,0.5);
-    padding-bottom: 10px;
+li {
+  display: inline;
 }
 
-.tag{
-    text-wrap:wrap;
+a {
+  text-decoration: none;
+  background-color: #fff;
+  color: black;
+  box-shadow: (0, 0, 0, 0.5);
+  padding-bottom: 10px;
 }
 
-.specifications{
-    width: 98%;
+.tag {
+  text-wrap: wrap;
 }
 
-.carousel-control-prev-icon, .carousel-control-next-icon{
-    background-color: #f87f27;
-    border: none;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    font-size: 30px;
-    line-height: 40px;
-    border-radius: 10%;
-
+.specifications {
+  width: 98%;
 }
 
-.carousel-control-prev-icon{
-    margin-right: 55px;
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #f87f27;
+  border: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 30px;
+  line-height: 40px;
+  border-radius: 10%;
 }
 
-.carousel-control-next-icon{
-margin-left: 55px;
+.carousel-control-prev-icon {
+  margin-right: 55px;
 }
 
-.carousel-control-prev-icon:hover, .carousel-control-next-icon:hover{
-    background-color: #282827;
+.carousel-control-next-icon {
+  margin-left: 55px;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: #282827;
 }

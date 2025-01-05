@@ -3,22 +3,29 @@
     <div class="row">
       <div class="col-md-3">
         <img
-          src="/images/cover1.jpg"
-          class="img-fluid"
+          *ngIf="storyDetails?.cover_image"
+          [src]="storyDetails.cover_image"
+          class="img-fluid story-img"
           alt="cover book"
-          style="width: 80%"
         />
         <div>
-          <button class="btn now" routerLink="/story/read">Read now</button>
+          <button
+            class="btn now"
+            (click)="readStory(storyDetails.id)"
+          >
+            Read now
+          </button>
         </div>
         <div>
-          <button class="btn later">Save to read Later</button>
+          <button class="btn later" (click)="onReadLater()">
+            Save to read Later
+          </button>
         </div>
       </div>
       <div class="col-md-9">
         <!--title-->
         <div class="title mb-3 mt-sm-4 mt-md-0">
-          <h3>Book Title</h3>
+          <h3>{{ storyDetails.title }}</h3>
         </div>
         <!--icons-->
         <div class="d-flex justify-content-start mb-5">
@@ -29,7 +36,9 @@
                 style="height: 20px; width: 20px"
                 alt=""
               />
-              <span style="padding-left: 5px; font-size: 14px">20</span>
+              <span style="padding-left: 5px; font-size: 14px">{{
+                storyDetails.readers_count
+              }}</span>
             </span>
           </div>
           <div class="ps-3">
@@ -39,7 +48,9 @@
                 style="height: 20px; width: 20px"
                 alt=""
               />
-              <span style="padding-left: 3px; font-size: 14px"> 200</span></span
+              <span style="padding-left: 3px; font-size: 14px">{{
+                storyDetails.votes_count
+              }}</span></span
             >
           </div>
           <div class="ps-3">
@@ -49,7 +60,7 @@
                 style="height: 20px; width: 20px"
                 alt=""
               />
-              <span style="font-size: 14px"> 150</span></span
+              <span style="font-size: 14px">{{ storyDetails.comments_count }}</span></span
             >
           </div>
           <div class="ps-2">
@@ -59,7 +70,7 @@
                 style="padding-left: 5px; height: 13px; width: 20px"
                 alt=""
               />
-              <span style="font-size: 12px"> 150</span></span
+              <span style="font-size: 12px">{{ storyDetails.chapters_count }}</span></span
             >
           </div>
         </div>
@@ -67,28 +78,26 @@
         <mat-tab-group>
           <mat-tab label="Details">
             <div class="description my-4">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non
-              natus molestiae debitis consequuntur nulla dolorum pariatur?
-              Asperiores eveniet iste assumenda vel voluptatum velit
-              perspiciatis quia officiis non architecto. Consequuntur, deleniti.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non
-              natus molestiae debitis consequuntur nulla dolorum pariatur?
-              Asperiores eveniet iste assumenda vel voluptatum velit
-              perspiciatis quia officiis non architecto. Consequuntur, deleniti.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non
-              natus molestiae debitis consequuntur nulla dolorum pariatur?
-              Asperiores eveniet iste assumenda vel voluptatum velit
-              perspiciatis quia officiis non architecto. Consequuntur, deleniti.
+              {{ storyDetails.description }}
             </div>
             <div class="my-3 specifications">
               <div class="row align-items-center">
                 <div class="col-md-3">Main Characters:</div>
                 <div class="col-md-9">
                   <mat-chip-set aria-label="Fish selection">
-                    <mat-chip>asmaa</mat-chip>
-                    <mat-chip>hadeer</mat-chip>
-                    <mat-chip>nour</mat-chip>
+                    <mat-chip
+                      *ngFor="let character of storyDetails.main_characters"
+                      >{{ character?.name }}</mat-chip
+                    >
                   </mat-chip-set>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <p>Author:</p>
+                </div>
+                <div class="col-md-9">
+                  <p>{{ storyDetails.user?.username }}</p>
                 </div>
               </div>
               <div class="row align-items-center">
@@ -96,15 +105,15 @@
                   <p>Category:</p>
                 </div>
                 <div class="col-md-9">
-                  <p>adventure</p>
+                  <p>{{ storyDetails.category?.category_name }}</p>
                 </div>
               </div>
               <div class="row align-items-center">
                 <div class="col-md-3">
-                  <p>Language:</p>
+                  <p>Content type:</p>
                 </div>
                 <div class="col-md-9">
-                  <p>Arabic</p>
+                  <p>{{ storyDetails.content_type }}</p>
                 </div>
               </div>
               <div class="row align-items-center">
@@ -112,23 +121,23 @@
                   <p>Status:</p>
                 </div>
                 <div class="col-md-9">
-                  <p>completed</p>
+                  <p>{{ storyDetails.status }}</p>
                 </div>
               </div>
-              <div class="row align-items-center">
+              <!-- <div class="row align-items-center">
                 <div class="col-md-3">
                   <p>published on:</p>
                 </div>
                 <div class="col-md-9">
-                  <p>Any Date</p>
+                  <p></p>
                 </div>
-              </div>
+              </div> -->
               <div class="row align-items-center">
                 <div class="col-md-3">
                   <p>last update:</p>
                 </div>
                 <div class="col-md-9">
-                  <p>Author Date</p>
+                  <p>{{ storyDetails.updated_at | date }}</p>
                 </div>
               </div>
               <div class="row align-items-center">
@@ -137,9 +146,7 @@
                 </div>
                 <div class="col-md-9">
                   <mat-chip-set aria-label="Fish selection" class="tag">
-                    <mat-chip>asmaa</mat-chip>
-                    <mat-chip>hadeer</mat-chip>
-                    <mat-chip>nour</mat-chip>
+                    <mat-chip *ngFor="let tag of storyDetails.tags">{{ tag.name }}</mat-chip>
                   </mat-chip-set>
                 </div>
               </div>
@@ -147,30 +154,10 @@
           </mat-tab>
           <mat-tab label="Content">
             <ul class="my-4">
-              <li>
-                <a href="#"
+              <li *ngFor="let character of storyDetails.main_characters">
+                <a routerLink=""
                   ><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">
-                    Chapter 1
-                  </p></a
-                >
-                <a href="#"
-                  ><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">
-                    Chapter 2
-                  </p></a
-                >
-                <a href="#"
-                  ><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">
-                    Chapter 3
-                  </p></a
-                >
-                <a href="#"
-                  ><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">
-                    Chapter 4
-                  </p></a
-                >
-                <a href="#"
-                  ><p class="bg-white shadow-sm py-3 rounded-2 ps-3 fs-6">
-                    Chapter 5
+                    Chapter {{ character.name }}
                   </p></a
                 >
               </li>
@@ -232,56 +219,6 @@
             />
           </div>
           <div class="carousel-item">
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-          </div>
-          <div class="carousel-item">
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
-            <img
-              src="images/cover1.jpg"
-              class="img-fluid px-2"
-              alt="cover"
-              style="height: 220px; width: 160px"
-            />
             <img
               src="images/cover1.jpg"
               class="img-fluid px-2"

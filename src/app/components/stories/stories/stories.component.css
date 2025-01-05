@@ -1,5 +1,9 @@
 .container {
-  margin: 80px 90px;
+  margin: 50px 50px;
+}
+
+mat-card {
+  cursor: pointer
 }
 
 a {
@@ -14,4 +18,9 @@ a {
 
 mat-card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+img.story-img {
+  max-height: 170px;
+  min-height: 170px;
 }

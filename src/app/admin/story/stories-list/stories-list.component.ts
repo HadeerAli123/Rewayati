@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { StoryService } from '../../../services/story.service';
 import { Story } from '../../../interfaces/story';
 
@@ -46,6 +46,10 @@ export class StoriesListComponent implements OnInit, AfterViewInit {
     this.router.navigate([`category/update/${id}`]);
   }
 
+  viewStory() {
+
+  }
+  
   deleteStory(id: number = 0) {
     if (confirm('Are you sure you want to delete this story?')) {
       this.storyService.deleteStory(id).subscribe({
