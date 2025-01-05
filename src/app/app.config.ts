@@ -3,7 +3,7 @@ import {
   importProvidersFrom,
   provideZoneChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, RouterModule } from '@angular/router';
 import {
   BrowserModule,
   provideClientHydration,
@@ -25,7 +25,7 @@ import { AuthService } from './services/auth/auth.service';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    // provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
     importProvidersFrom([
@@ -34,6 +34,7 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       BrowserAnimationsModule,
       NoopAnimationsModule,
+      RouterModule.forRoot(routes)
     ]),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideHttpClient(withFetch()),

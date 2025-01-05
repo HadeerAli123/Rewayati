@@ -13,7 +13,8 @@ export const routes: Routes = [
 
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((mod) => mod.AuthModule),
+    loadChildren: () =>
+      import('./auth/auth.module').then((mod) => mod.AuthModule),
   },
 
   {
@@ -34,17 +35,37 @@ export const routes: Routes = [
   },
 
   {
-    path: 'stories/:category_id',
+    path: 'stories',
     canActivate: [AuthGuard],
     data: { role: 'reader' },
     loadComponent: () =>
-      import(
-        '../app/components/stories/stories/stories.component'
-      ).then((mod) => mod.StoriesComponent),
+      import('../app/components/stories/stories/stories.component').then(
+        (mod) => mod.StoriesComponent
+      ),
   },
 
   {
-    path: 'story/details',
+    path: 'stories-by-category/:category_id',
+    canActivate: [AuthGuard],
+    data: { role: 'reader' },
+    loadComponent: () =>
+      import('../app/components/stories/stories/stories.component').then(
+        (mod) => mod.StoriesComponent
+      ),
+  },
+
+  {
+    path: 'stories-by-tags/:tag_id',
+    canActivate: [AuthGuard],
+    data: { role: 'reader' },
+    loadComponent: () =>
+      import('../app/components/stories/stories/stories.component').then(
+        (mod) => mod.StoriesComponent
+      ),
+  },
+
+  {
+    path: 'story/:storyId/details',
     canActivate: [AuthGuard],
     data: { role: 'reader' },
     loadComponent: () =>
@@ -54,7 +75,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'story/read',
+    path: 'story/:storyId/read',
     canActivate: [AuthGuard],
     data: { role: 'reader' },
     loadComponent: () =>

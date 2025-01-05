@@ -82,6 +82,16 @@ export const adminRoutes: Routes = [
       },
 
       {
+        path: 'deleted-stories',
+        canActivate: [AuthGuard],
+        data: { role: 'admin' },
+        loadComponent: () =>
+          import('./story/stories-list/stories-list.component').then(
+            (mod) => mod.StoriesListComponent
+          ),
+      },
+
+      {
         path: 'story/create',
         canActivate: [AuthGuard],
         data: { role: 'admin' },
