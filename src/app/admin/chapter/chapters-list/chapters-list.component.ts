@@ -1,28 +1,48 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ChaptersService } from '../../../services/chapters.service';
 
 @Component({
   selector: 'app-chapters-list',
   standalone: true,
   imports: [CommonModule, MatPaginatorModule, MatTableModule],
   templateUrl: './chapters-list.component.html',
-  styleUrl: './chapters-list.component.css'
+  styleUrl: './chapters-list.component.css',
 })
-export class ChaptersListComponent  implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'Actions'];
+export class ChaptersListComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = [
+    'position',
+    'name',
+    'weight',
+    'symbol',
+    'Actions',
+  ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+
+  story_id: string | number = '';
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
   constructor(
-      private router: Router
+    private router: Router,
+    private chapterServices: ChaptersService
   ) {}
 
+  ngOnInit(): void {
+    this.chapterServices.chapterIndex(this.story_id).subscribe({
+      // next
+    });
+  }
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator? this.paginator: null;
+    this.dataSource.paginator = this.paginator ? this.paginator : null;
+  }
+
+  deleteChapter() {
+
   }
 }
 
