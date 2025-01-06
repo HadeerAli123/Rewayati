@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,45 +9,65 @@ import { Story } from '../../../interfaces/story';
 @Component({
   selector: 'app-book-collection',
   standalone: true,
-  imports: [RouterModule, CommonModule, MatCardModule, MatButtonModule],
+  imports: [
+    RouterModule, CommonModule, MatCardModule, MatButtonModule
+  ],
   templateUrl: './book-collection.component.html',
   styleUrl: './book-collection.component.css',
 })
 export class BookCollectionComponent implements OnInit {
-  visibleBook: any[] = [];
-  booksPerPage: number[] = [];
+  visibleStories: Story [] = [];
+  booksPerPage: number [] = [];
   stories: Array<Story> = [];
+  @Input({ required: true }) title: string = '';
+  @Input({ required: true }) routingItem: string = '';
 
-  constructor(private router: Router, private storiesServices: StoryService) {
-    this.loadInit();
+  constructor(
+    private router: Router,
+    private storiesServices: StoryService
+  ) {
   }
 
   ngOnInit(): void {
-    this.storiesServices.getTopStoriesByViews().subscribe({
-      next: (res) => {
-        console.log('res', res);
-        this.stories = res;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    if(this.router.url.includes(`stories/latest-stories`)) {
+      this.storiesServices.getAdvertisementStoryByLatestStory().subscribe({
+        next: (res) => {
+          console.log('latest', res);
+          this.stories = res;
+          this.loadInit();
+        }, error: (error) => {
+          console.log(error);
+        }
+      });
+    }
+
+    if(this.router.url.includes(`stories/popular-stories`)) {
+      this.storiesServices.getTopStoriesByViews().subscribe({
+        next: (res) => {
+          console.log('getTopStoriesByViews', res);
+          this.stories = res;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    }
   }
 
   loadInit() {
-    // this.visibleBook = this.books.slice(0, 6);
+    this.visibleStories = this.stories.slice(0, 6);
   }
 
   loadPrevious() {
-    // const startIndex = this.visibleBook.length - 6;
-    // this.visibleBook = this.books.slice(startIndex, startIndex + 6);
+    const startIndex = this.visibleStories.length - 6;
+    this.visibleStories = this.stories.slice(startIndex, startIndex + 6);
   }
 
   showDetails(storyId: number | string) {
-    this.router.navigateByUrl(``);
+    this.router.navigateByUrl(`story/${storyId}/details`);
   }
 
   loadMore() {
-    this.router.navigateByUrl(``);
+    this.router.navigateByUrl(`story/`);
   }
 }

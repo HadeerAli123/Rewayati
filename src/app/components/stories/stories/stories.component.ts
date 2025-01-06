@@ -21,7 +21,7 @@ import { CategoryCarouselComponent } from '../../homepage/category-carousel/cate
   styleUrl: './stories.component.css',
 })
 export class StoriesComponent implements OnInit {
-  stories: Story[] = [];
+  stories: Story [] = [];
   tagId: string | number = 0;
   categoryId: string | number = 0;
 
@@ -35,6 +35,8 @@ export class StoriesComponent implements OnInit {
       this.categoryId = params['category_id'];
     });
 
+    this.categoryChange();
+
     // this.storyService.getAllStories().subscribe({
     //   next: (stories: Story[]) => {
     //     this.stories = stories;
@@ -43,16 +45,6 @@ export class StoriesComponent implements OnInit {
     //     console.log(error);
     //   },
     // });
-
-    this.storyService.getStoriesByCategory(this.categoryId).subscribe({
-      next: (stories: Story[]) => {
-        console.log('by category', stories);
-        this.stories = stories;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
 
     // this.storyService.getAdvertisementStoryByLatestStory().subscribe({
     //   next: (stories: Story[]) => {
@@ -83,5 +75,18 @@ export class StoriesComponent implements OnInit {
     //     console.log(error);
     //   },
     // });
+  }
+
+  categoryChange(event: number | null = null) {
+    console.log('event', event);
+    this.storyService.getStoriesByCategory(event? event : this.categoryId).subscribe({
+      next: (stories: Story[]) => {
+        console.log('by category', stories);
+        this.stories = stories;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }

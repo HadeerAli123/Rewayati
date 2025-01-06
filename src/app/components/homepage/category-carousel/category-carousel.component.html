@@ -50,16 +50,16 @@
     <div class="d-flex justify-content-evenly my-2">
       <div
         class="card me-2"
-        *ngFor="let category of visibleCategories; let i = index"
+        *ngFor="let tag of tags; let i = index"
         [ngClass]="{ active: i === currentIndex }"
-        (click)="goToCategoryPage(category.cat_id)"
+        (click)="getStoriesByTag(tag.id)"
       >
         <div class="card-title">
           <img
             src="images/book-and-pen.png"
             alt="book-and-pen"
           />
-          <span>{{ category?.category_name }}</span>
+          <span>{{ tag?.name }}</span>
         </div>
       </div>
     </div>

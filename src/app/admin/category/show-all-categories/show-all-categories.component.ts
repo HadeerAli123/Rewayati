@@ -2,15 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoryService } from '../../../services/category.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../interfaces/category';
 
 @Component({
   selector: 'app-show-all-categories',
   standalone: true,
-  imports: [CommonModule, MatPaginatorModule, MatTableModule],
+  imports: [ CommonModule, MatPaginatorModule, MatTableModule ],
   templateUrl: './show-all-categories.component.html',
   styleUrl: './show-all-categories.component.css',
 })
@@ -38,7 +38,7 @@ export class ShowAllCategoriesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator? this.paginator: null;
+    this.dataSource.paginator = this.paginator ? this.paginator : null;
   }
 
   viewTags(cat_id: number | string) {

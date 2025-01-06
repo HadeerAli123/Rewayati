@@ -3,7 +3,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CategoryService } from '../../../services/category.service';
 import {
   FormControl,
   FormGroup,
@@ -12,6 +11,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Category } from '../../../interfaces/category';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-create-category',
@@ -26,10 +26,11 @@ import { Category } from '../../../interfaces/category';
   ],
   templateUrl: './create-category.component.html',
   styleUrl: './create-category.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateCategoryComponent implements OnInit {
   categoryForm: FormGroup = new FormGroup({}); //form data and validation
-  category: Category = {};
+  category: Category = { cat_id: 0, category_name: '' };
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -63,6 +64,7 @@ export class CreateCategoryComponent implements OnInit {
           },
           error: (error) => {
             console.log('error', error);
+
           },
         });
     }
