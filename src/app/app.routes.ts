@@ -28,6 +28,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     canActivate: [AuthGuard],
+    data: { role: ['reader', 'admin'] },
     loadComponent: () =>
       import('../app/user/profile/profile.component').then(
         (mod) => mod.ProfileComponent
@@ -35,9 +36,15 @@ export const routes: Routes = [
   },
 
   {
-    path: 'stories',
-    canActivate: [AuthGuard],
-    data: { role: 'reader' },
+    path: 'stories/latest-stories',
+    loadComponent: () =>
+      import('../app/components/stories/stories/stories.component').then(
+        (mod) => mod.StoriesComponent
+      ),
+  },
+
+  {
+    path: 'stories/popular-stories',
     loadComponent: () =>
       import('../app/components/stories/stories/stories.component').then(
         (mod) => mod.StoriesComponent
@@ -46,8 +53,6 @@ export const routes: Routes = [
 
   {
     path: 'stories-by-category/:category_id',
-    canActivate: [AuthGuard],
-    data: { role: 'reader' },
     loadComponent: () =>
       import('../app/components/stories/stories/stories.component').then(
         (mod) => mod.StoriesComponent
@@ -56,8 +61,6 @@ export const routes: Routes = [
 
   {
     path: 'stories-by-tags/:tag_id',
-    canActivate: [AuthGuard],
-    data: { role: 'reader' },
     loadComponent: () =>
       import('../app/components/stories/stories/stories.component').then(
         (mod) => mod.StoriesComponent
@@ -67,7 +70,7 @@ export const routes: Routes = [
   {
     path: 'story/:storyId/details',
     canActivate: [AuthGuard],
-    data: { role: 'reader' },
+    data: { role: ['reader', 'admin'] },
     loadComponent: () =>
       import('../app/components/story-details/story-details.component').then(
         (mod) => mod.StoryDetailsComponent
@@ -77,7 +80,7 @@ export const routes: Routes = [
   {
     path: 'story/:storyId/read',
     canActivate: [AuthGuard],
-    data: { role: 'reader' },
+    data: { role: ['reader', 'admin'] },
     loadComponent: () =>
       import('../app/components/story-chapters/story-chapters.component').then(
         (mod) => mod.StoryChaptersComponent
