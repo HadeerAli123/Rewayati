@@ -25,6 +25,7 @@
     "/contact",
     "/home",
     "/profile",
-    "/stories"
+    "/stories/latest-stories",
+    "/stories/popular-stories"
   ]
 }
