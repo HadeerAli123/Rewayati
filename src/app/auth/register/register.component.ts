@@ -71,7 +71,7 @@ export class RegisterComponent {
         confirmPassword: ['', Validators.required],
         gender: ['', Validators.required],
         image: ['', Validators.required],
-        role: ['admin', Validators.required],
+        role: ['reader', Validators.required],
         device_name: [
           deviceService.getDeviceInfo().device
             ? deviceService.getDeviceInfo().device
