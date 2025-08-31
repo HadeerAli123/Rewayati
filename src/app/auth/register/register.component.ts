@@ -48,9 +48,9 @@ export class RegisterComponent {
 
   constructor(
     private _formBuilder: FormBuilder,
+    private router: Router,
     private categoryService: CategoryService,
     private authService: AuthService,
-    private router: Router,
     private categoriesService: CategoryService,
     private deviceService: DeviceDetectorService
   ) {
